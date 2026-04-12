@@ -5,7 +5,7 @@
 - **Figma File Key**: 9ypp4enmFmdK3YAFJLIu6C
 - **Figma URL**: https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C
 - **Created**: 2026-04-08
-- **Last Updated**: 2026-04-08
+- **Last Updated**: 2026-04-12
 
 ---
 
@@ -14,8 +14,8 @@
 | Metric | Count |
 |--------|-------|
 | Total Screens | 150+ |
-| Discovered | 1 |
-| Remaining | ~149 |
+| Discovered | 2 |
+| Remaining | ~148 |
 | Completion | ~1% |
 
 ---
@@ -25,7 +25,7 @@
 | # | Screen Name | Frame ID | Figma Link | Status | Detail File | Predicted APIs | Navigations To |
 |---|-------------|----------|------------|--------|-------------|----------------|----------------|
 | 1 | Login | GzbNeVGJHz | https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C?node-id=GzbNeVGJHz | discovered | — | POST /auth/google, GET /auth/me | Homepage SAA, Dropdown-ngôn ngữ |
-| 2 | Homepage SAA | i87tDx10uM | https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C?node-id=i87tDx10uM | pending | — | — | — |
+| 2 | Homepage SAA | i87tDx10uM | https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C?node-id=i87tDx10uM | discovered | — | GET /awards, GET /kudos | About SAA 2025, Awards Information, Sun* Kudos, Dropdown-profile, Dropdown-ngôn ngữ, Notification panel, Quick action menu |
 | 3 | Countdown - Prelaunch page | 8PJQswPZmU | https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C?node-id=8PJQswPZmU | pending | — | — | — |
 | 4 | Dropdown-ngôn ngữ | hUyaaugye2 | https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C?node-id=hUyaaugye2 | pending | — | — | — |
 
@@ -42,10 +42,16 @@ flowchart TD
     subgraph Main["Main Application"]
         Homepage["Homepage SAA\n/"]
         Countdown["Countdown - Prelaunch\n/prelaunch"]
+        AboutSAA["About SAA 2025"]
+        AwardsInfo["Awards Information"]
+        SunKudos["Sun* Kudos"]
     end
 
     subgraph Overlay["Overlays / Dropdowns"]
-        LangDropdown["Dropdown-ngôn ngữ\n(overlay)"]
+        LangDropdown["Dropdown-ngôn ngữ\n(overlay)\nhUyaaugye2"]
+        ProfileDropdown["Dropdown-profile\n(overlay)\n721:5223"]
+        NotifPanel["Notification panel\n(overlay)"]
+        QuickAction["Quick action menu\n(overlay)"]
     end
 
     %% Entry to Login
@@ -56,6 +62,35 @@ flowchart TD
     Login -->|"Click 'LOGIN With Google' → Google OAuth success"| Homepage
     Login -->|"Click Language button (VN toggle)"| LangDropdown
     LangDropdown -->|"Select language / dismiss"| Login
+
+    %% From Homepage SAA — nav bar
+    Homepage -->|"Click 'About SAA 2025' nav link"| AboutSAA
+    Homepage -->|"Click 'Awards Information' nav link"| AwardsInfo
+    Homepage -->|"Click 'Sun* Kudos' nav link"| SunKudos
+
+    %% From Homepage SAA — CTA buttons
+    Homepage -->|"Click 'ABOUT AWARDS' CTA"| AwardsInfo
+    Homepage -->|"Click 'ABOUT KUDOS' CTA"| SunKudos
+
+    %% From Homepage SAA — award cards
+    Homepage -->|"Click award card (image/title/'Chi tiết')"| AwardsInfo
+
+    %% From Homepage SAA — Sun* Kudos section
+    Homepage -->|"Click 'Chi tiết' in Sun* Kudos section"| SunKudos
+
+    %% From Homepage SAA — header overlays
+    Homepage -->|"Click avatar/user icon (A1.8)"| ProfileDropdown
+    Homepage -->|"Click language toggle (A1.7)"| LangDropdown
+    Homepage -->|"Click bell icon (A1.6)"| NotifPanel
+    Homepage -->|"Click Widget Button (6)"| QuickAction
+
+    %% Logo — scroll to top (same page)
+    Homepage -->|"Click logo"| Homepage
+
+    %% From other pages back to Homepage
+    AboutSAA -->|"Click logo"| Homepage
+    AwardsInfo -->|"Click logo"| Homepage
+    SunKudos -->|"Click logo"| Homepage
 
     %% After successful login
     Homepage -->|"logout"| Login
@@ -78,12 +113,18 @@ flowchart TD
 ### Group: Main Application
 | Screen | Purpose | Entry Points | URL |
 |--------|---------|--------------|-----|
-| Homepage SAA | Main hub / landing after login | After successful Google OAuth | `/` |
+| Homepage SAA | Main hub / landing after login; links to Awards, Kudos, About SAA sections | After successful Google OAuth; click logo from any page | `/` |
+| About SAA 2025 | About the Sun Annual Awards 2025 event | "About SAA 2025" nav link from any main page | TBD |
+| Awards Information | Detailed awards listing and individual award detail | "Awards Information" nav link, "ABOUT AWARDS" CTA, award card click | TBD |
+| Sun* Kudos | Kudos feature hub | "Sun* Kudos" nav link, "ABOUT KUDOS" CTA, Kudos section "Chi tiết" | TBD |
 
 ### Group: Overlays
 | Screen | Purpose | Entry Points |
 |--------|---------|--------------|
-| Dropdown-ngôn ngữ | Language selector overlay | Language button in header (Login, Homepage) |
+| Dropdown-ngôn ngữ (hUyaaugye2) | Language selector overlay | Language button in header (Login, Homepage SAA) |
+| Dropdown-profile (721:5223) | User profile dropdown | Avatar/user icon (A1.8) in Homepage SAA header |
+| Notification panel | In-app notifications | Bell icon (A1.6) in Homepage SAA header |
+| Quick action menu | Shortcut actions | Widget Button (6) in Homepage SAA |
 
 ---
 
@@ -121,6 +162,57 @@ flowchart TD
 
 ---
 
+## Homepage SAA Screen Detail (i87tDx10uM)
+
+### Page URL
+`/`
+
+### Interactive Elements
+| Element | Type | Action | Navigation Target |
+|---------|------|--------|-------------------|
+| Logo | Image/Link | `on_click` → scroll to top (same page) | Homepage SAA (`/`) |
+| A1.6 — Bell icon | Icon button | `on_click` → open notification panel | Notification panel (overlay) |
+| A1.7 — Language toggle | Button (toggle) | `on_click` → open language dropdown | Dropdown-ngôn ngữ (overlay, hUyaaugye2) |
+| A1.8 — Avatar/user icon | Button/Avatar | `on_click` → open profile dropdown | Dropdown-profile (overlay, 721:5223) |
+| "About SAA 2025" nav link | Nav link | `on_click` → navigate | About SAA 2025 page |
+| "Awards Information" nav link | Nav link | `on_click` → navigate | Awards Information page |
+| "Sun* Kudos" nav link | Nav link | `on_click` → navigate | Sun* Kudos page |
+| "ABOUT AWARDS" CTA button | Button | `on_click` → navigate | Awards Information page |
+| "ABOUT KUDOS" CTA button | Button | `on_click` → navigate | Sun* Kudos page |
+| Award card (image/title/"Chi tiết") | Card / Link | `on_click` → navigate with hash | Awards Information page (`#{award-slug}`) |
+| "Chi tiết" in Sun* Kudos section | Link/Button | `on_click` → navigate | Sun* Kudos page |
+| Widget Button (6) | Floating button | `on_click` → open quick action menu | Quick action menu (overlay) |
+
+### Navigation FROM Homepage SAA
+| Trigger | Target Screen | Target URL / Notes |
+|---------|--------------|-------------------|
+| Click "About SAA 2025" nav link | About SAA 2025 page | TBD |
+| Click "Awards Information" nav link | Awards Information page | TBD |
+| Click "Sun* Kudos" nav link | Sun* Kudos page | TBD |
+| Click "ABOUT AWARDS" CTA button | Awards Information page | TBD |
+| Click "ABOUT KUDOS" CTA button | Sun* Kudos page | TBD |
+| Click award card (image / title / "Chi tiết") | Awards Information page | `#{award-slug}` hash anchor |
+| Click "Chi tiết" in Sun* Kudos section | Sun* Kudos page | TBD |
+| Click avatar/user icon (A1.8) | Dropdown-profile | overlay (no route change), frame 721:5223 |
+| Click language toggle (A1.7) | Dropdown-ngôn ngữ | overlay (no route change), screen hUyaaugye2 |
+| Click bell icon (A1.6) | Notification panel | overlay (no route change) |
+| Click Widget Button (6) | Quick action menu | overlay (no route change) |
+| Click logo | Homepage SAA | `/` — scroll to top, no route change |
+
+### Navigation TO Homepage SAA
+| Source | Trigger |
+|--------|---------|
+| Login (GzbNeVGJHz) | Successful Google OAuth redirect |
+| Any page with logo | Click logo |
+
+### Notes
+- The homepage is the main post-login hub, surfacing both the Awards and Sun* Kudos features.
+- Award card clicks deep-link to Awards Information with a `#{award-slug}` hash to scroll to the relevant award.
+- Header overlays (profile dropdown, language dropdown, notification panel) are all rendered in-place with no URL change.
+- Quick action menu (Widget Button 6) is a floating shortcut launcher, also overlay only.
+
+---
+
 ## API Endpoints Summary
 
 | Endpoint | Method | Screens Using | Purpose |
@@ -128,6 +220,8 @@ flowchart TD
 | /auth/google | POST/GET | Login | Initiate Google OAuth flow |
 | /auth/google/callback | GET | Login (callback) | Handle OAuth callback, issue session |
 | /auth/me | GET | Login (post-auth) | Get authenticated user info |
+| /awards | GET | Homepage SAA | Fetch awards list for homepage award cards |
+| /kudos | GET | Homepage SAA | Fetch kudos data for homepage Sun* Kudos section |
 
 ---
 
@@ -146,12 +240,16 @@ flowchart LR
 
     subgraph API["Backend API"]
         AuthAPI["Auth Service\n/auth/google"]
+        AwardsAPI["Awards Service\n/awards"]
+        KudosAPI["Kudos Service\n/kudos"]
     end
 
     Login -->|"Click LOGIN With Google\nredirect to Google"| Google
     Google -->|"OAuth callback with code"| AuthAPI
     AuthAPI -->|"JWT / session token"| Login
     Login -->|"redirect on success"| Homepage
+    Homepage -->|"fetch award cards"| AwardsAPI
+    Homepage -->|"fetch kudos section"| KudosAPI
 ```
 
 ---
@@ -182,12 +280,13 @@ flowchart LR
 | Date | Action | Screens | Notes |
 |------|--------|---------|-------|
 | 2026-04-08 | Initial discovery | Login (GzbNeVGJHz) | Auth flow documented; Google OAuth only, no register/forgot-password |
+| 2026-04-12 | Screen discovery | Homepage SAA (i87tDx10uM) | Post-login hub; nav to Awards, Kudos, About SAA; header overlays (profile, lang, notif); award card deep-links with hash; Widget Button quick action |
 
 ---
 
 ## Next Steps
 
-- [ ] Discover Homepage SAA (i87tDx10uM) — map post-login navigation
+- [x] Discover Homepage SAA (i87tDx10uM) — map post-login navigation
 - [ ] Discover Countdown - Prelaunch page (8PJQswPZmU)
 - [ ] Discover Admin screens (Admin - Overview, Admin - User, Admin - Setting, etc.)
 - [ ] Discover Profile screens (Profile bản thân, Profile người khác)
