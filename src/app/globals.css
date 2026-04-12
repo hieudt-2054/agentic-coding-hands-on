@@ -1,26 +1,128 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Design Tokens — Login (GzbNeVGJHz)
+   Source: .momorph/specs/GzbNeVGJHz-Login/design-style.md
+   ============================================================ */
+
 :root {
-	--background: #ffffff;
-	--foreground: #171717;
+  /* Colors */
+  --color-bg-page: #00101a;
+  --color-header-bg: rgba(11, 15, 18, 0.8);
+  --color-btn-login-bg: #ffea9e;
+  --color-btn-login-text: #00101a;
+  --color-text-primary: #ffffff;
+  --color-divider: #2e3940;
+  --color-error: #ff4d4f;
+  --color-gradient-hero: linear-gradient(
+    90deg,
+    #00101a 0%,
+    #00101a 25.41%,
+    rgba(0, 16, 26, 0) 100%
+  );
+  --color-gradient-footer: linear-gradient(
+    0deg,
+    #00101a 22.48%,
+    rgba(0, 19, 32, 0) 51.74%
+  );
+
+  /* Typography — font families (injected by layout.tsx) */
+  --font-montserrat: var(--font-montserrat-var);
+  --font-montserrat-alt: var(--font-montserrat-alt-var);
+
+  /* Typography — hero CTA */
+  --text-hero-cta-size: 20px;
+  --text-hero-cta-weight: 700;
+  --text-hero-cta-line-height: 40px;
+  --text-hero-cta-letter-spacing: 0.5px;
+
+  /* Typography — login button */
+  --text-btn-login-size: 22px;
+  --text-btn-login-weight: 700;
+  --text-btn-login-line-height: 28px;
+
+  /* Typography — language code */
+  --text-lang-code-size: 16px;
+  --text-lang-code-weight: 700;
+  --text-lang-code-line-height: 24px;
+  --text-lang-code-letter-spacing: 0.15px;
+
+  /* Typography — footer */
+  --text-footer-size: 16px;
+  --text-footer-weight: 700;
+  --text-footer-line-height: 24px;
+
+  /* Typography — error message */
+  --text-error-size: 14px;
+  --text-error-weight: 500;
+  --text-error-line-height: 20px;
+
+  /* Spacing */
+  --spacing-header-px: 144px;
+  --spacing-header-py: 12px;
+  --spacing-hero-px: 144px;
+  --spacing-hero-py: 96px;
+  --spacing-hero-gap: 120px;
+  --spacing-footer-px: 90px;
+  --spacing-footer-py: 40px;
+  --spacing-btn-login-px: 24px;
+  --spacing-btn-login-py: 16px;
+  --spacing-btn-lang-p: 16px;
+  --spacing-lang-inner-gap: 4px;
+
+  /* Border & Radius */
+  --radius-btn-login: 8px;
+  --radius-btn-lang: 4px;
+  --border-footer-top: 1px solid #2e3940;
+
+  /* Shadows */
+  --shadow-btn-login-hover: 0 4px 12px rgba(255, 234, 158, 0.3);
 }
 
 @theme inline {
-	--color-background: var(--background);
-	--color-foreground: var(--foreground);
-	--font-sans: var(--font-geist-sans);
-	--font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
-	}
+  --color-background: var(--color-bg-page);
+  --color-foreground: var(--color-text-primary);
+  --font-sans: var(--font-montserrat);
+  --font-alt: var(--font-montserrat-alt);
 }
 
 body {
-	background: var(--background);
-	color: var(--foreground);
-	font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-montserrat), Arial, Helvetica, sans-serif;
+}
+
+/* ============================================================
+   Responsive overrides
+   ============================================================ */
+
+/* Mobile (< 768px) */
+@media (max-width: 767px) {
+  :root {
+    --spacing-header-px: 16px;
+    --spacing-hero-px: 16px;
+    --spacing-hero-py: 48px;
+    --spacing-hero-gap: 40px;
+    --spacing-footer-px: 16px;
+    --spacing-footer-py: 24px;
+    --text-hero-cta-size: 16px;
+    --text-hero-cta-line-height: 28px;
+  }
+
+  .login-btn { width: 100% !important; }
+  .key-visual { width: 100% !important; max-width: 280px !important; }
+}
+
+/* Tablet (768px–1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --spacing-header-px: 48px;
+    --spacing-hero-px: 48px;
+    --spacing-hero-py: 64px;
+    --spacing-hero-gap: 64px;
+    --spacing-footer-px: 48px;
+    --spacing-footer-py: 32px;
+  }
+
+  .key-visual { max-width: 320px !important; }
 }
