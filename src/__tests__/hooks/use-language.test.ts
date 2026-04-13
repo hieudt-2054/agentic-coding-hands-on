@@ -6,9 +6,9 @@ describe('useLanguage', () => {
     localStorage.clear();
   });
 
-  it('returns "vn" as default language when localStorage is empty', () => {
+  it('returns "vi" as default language when localStorage is empty', () => {
     const { result } = renderHook(() => useLanguage());
-    expect(result.current.language).toBe('vn');
+    expect(result.current.language).toBe('vi');
   });
 
   it('reads language from localStorage on init', () => {

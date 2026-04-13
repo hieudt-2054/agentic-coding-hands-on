@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import AwardDetailCard from '@/components/awards/AwardDetailCard';
 import type { AwardFull } from '@/types/awards';
+import vi from '@/i18n/dictionaries/vi';
 
 jest.mock('next/link', () => {
   return ({ children, href, ...rest }: { children: React.ReactNode; href: string; [key: string]: unknown }) => (
@@ -32,13 +33,13 @@ const mockAward: AwardFull = {
 
 describe('AwardDetailCard', () => {
   it('renders in flex-row layout', () => {
-    const { container } = render(<AwardDetailCard award={mockAward} />);
+    const { container } = render(<AwardDetailCard award={mockAward} dict={vi} />);
     const card = container.firstElementChild as HTMLElement;
     expect(card.className).toContain('flex-row');
   });
 
   it('renders image with 336x336 dimensions', () => {
-    render(<AwardDetailCard award={mockAward} />);
+    render(<AwardDetailCard award={mockAward} dict={vi} />);
     const img = screen.getByRole('img');
     expect(img).toHaveAttribute('src', mockAward.imageUrl);
     expect(img).toHaveAttribute('width', '336');
@@ -46,20 +47,20 @@ describe('AwardDetailCard', () => {
   });
 
   it('renders title in gold', () => {
-    render(<AwardDetailCard award={mockAward} />);
+    render(<AwardDetailCard award={mockAward} dict={vi} />);
     const title = screen.getByText('Best Engineer');
     expect(title).toHaveStyle({ color: 'var(--color-text-gold)' });
   });
 
   it('renders full description text without clamp', () => {
-    render(<AwardDetailCard award={mockAward} />);
+    render(<AwardDetailCard award={mockAward} dict={vi} />);
     const description = screen.getByText(mockAward.description);
     expect(description).toBeInTheDocument();
     expect(description).not.toHaveStyle({ WebkitLineClamp: '2' });
   });
 
   it('renders 2 AwardMetaRows', () => {
-    render(<AwardDetailCard award={mockAward} />);
+    render(<AwardDetailCard award={mockAward} dict={vi} />);
     expect(screen.getByText('S\u1ed1 l\u01b0\u1ee3ng gi\u1ea3i th\u01b0\u1edfng:')).toBeInTheDocument();
     expect(screen.getByText('03 gi\u1ea3i')).toBeInTheDocument();
     expect(screen.getByText('Gi\u00e1 tr\u1ecb gi\u1ea3i th\u01b0\u1edfng:')).toBeInTheDocument();
@@ -67,14 +68,14 @@ describe('AwardDetailCard', () => {
   });
 
   it('has id attribute matching slug', () => {
-    const { container } = render(<AwardDetailCard award={mockAward} />);
+    const { container } = render(<AwardDetailCard award={mockAward} dict={vi} />);
     const card = container.firstElementChild as HTMLElement;
     expect(card).toHaveAttribute('id', 'best-engineer');
   });
 
   it('pads quantity to 2 digits', () => {
     const singleDigitAward = { ...mockAward, quantity: 1 };
-    render(<AwardDetailCard award={singleDigitAward} />);
+    render(<AwardDetailCard award={singleDigitAward} dict={vi} />);
     expect(screen.getByText('01 gi\u1ea3i')).toBeInTheDocument();
   });
 });

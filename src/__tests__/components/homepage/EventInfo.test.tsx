@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import EventInfo from '@/components/homepage/EventInfo';
+import vi from '@/i18n/dictionaries/vi';
 
 describe('EventInfo', () => {
   it('renders time label and value', () => {
@@ -9,6 +10,7 @@ describe('EventInfo', () => {
         time="18:00 - 21:00"
         venue="Grand Hall"
         streamNote={null}
+        dict={vi}
       />
     );
     expect(screen.getByText('Thời gian:')).toBeInTheDocument();
@@ -21,6 +23,7 @@ describe('EventInfo', () => {
         time="18:00 - 21:00"
         venue="Grand Hall"
         streamNote={null}
+        dict={vi}
       />
     );
     expect(screen.getByText('Địa điểm:')).toBeInTheDocument();
@@ -33,6 +36,7 @@ describe('EventInfo', () => {
         time="18:00 - 21:00"
         venue="Grand Hall"
         streamNote="Live stream available"
+        dict={vi}
       />
     );
     expect(screen.getByText('Live stream available')).toBeInTheDocument();
@@ -44,6 +48,7 @@ describe('EventInfo', () => {
         time="18:00 - 21:00"
         venue="Grand Hall"
         streamNote={null}
+        dict={vi}
       />
     );
     expect(screen.queryByText('Live stream available')).not.toBeInTheDocument();

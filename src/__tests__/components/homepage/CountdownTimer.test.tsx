@@ -1,6 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import CountdownTimer from '@/components/homepage/CountdownTimer';
+import vi from '@/i18n/dictionaries/vi';
+
+jest.mock('@/i18n/use-translation', () => ({
+  useTranslation: () => ({ t: (key: string) => (vi as Record<string, string>)[key] || key, locale: 'vi' }),
+}));
 
 jest.mock('@/hooks/use-countdown', () => ({
   useCountdown: jest.fn(),
@@ -62,8 +67,8 @@ describe('CountdownTimer', () => {
     });
 
     render(<CountdownTimer targetDatetime="2026-12-31T00:00:00Z" />);
-    expect(screen.getByText('Days')).toBeInTheDocument();
-    expect(screen.getByText('Hours')).toBeInTheDocument();
-    expect(screen.getByText('Minutes')).toBeInTheDocument();
+    expect(screen.getByText('DAYS')).toBeInTheDocument();
+    expect(screen.getByText('HOURS')).toBeInTheDocument();
+    expect(screen.getByText('MINUTES')).toBeInTheDocument();
   });
 });

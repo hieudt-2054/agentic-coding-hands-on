@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import AppFooter from '@/components/layout/AppFooter';
+import vi from '@/i18n/dictionaries/vi';
 
 jest.mock('next/image', () => {
   return ({ priority: _priority, loading: _loading, ...props }: Record<string, unknown>) => {
@@ -19,7 +20,7 @@ jest.mock('next/link', () => {
 
 describe('AppFooter', () => {
   it('renders logo image', () => {
-    render(<AppFooter />);
+    render(<AppFooter dict={vi} />);
     const logo = screen.getAllByRole('img').find(
       (img) => /saa/i.test(img.getAttribute('alt') ?? '') || /logo/i.test(img.getAttribute('alt') ?? '')
     );
@@ -27,20 +28,20 @@ describe('AppFooter', () => {
   });
 
   it('renders nav links', () => {
-    render(<AppFooter />);
+    render(<AppFooter dict={vi} />);
     expect(screen.getByText('About SAA 2025')).toBeInTheDocument();
     expect(screen.getByText('Awards Information')).toBeInTheDocument();
     expect(screen.getByText('Sun* Kudos')).toBeInTheDocument();
   });
 
   it('renders copyright text containing Sun* or SAA', () => {
-    render(<AppFooter />);
-    const copyright = screen.getByText(/© 2025 Sun\*/i);
+    render(<AppFooter dict={vi} />);
+    const copyright = screen.getByText(/Sun\*.*© 2025/i);
     expect(copyright).toBeInTheDocument();
   });
 
   it('footer has top border', () => {
-    render(<AppFooter />);
+    render(<AppFooter dict={vi} />);
     const footer = screen.getByRole('contentinfo');
     expect(footer).toHaveStyle({ borderTop: 'var(--border-footer-top)' });
   });

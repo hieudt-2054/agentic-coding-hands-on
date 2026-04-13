@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import AwardCard from '@/components/homepage/AwardCard';
 import type { Award } from '@/types/homepage';
+import vi from '@/i18n/dictionaries/vi';
 
 jest.mock('next/link', () => {
   return ({ children, href, ...rest }: { children: React.ReactNode; href: string; [key: string]: unknown }) => (
@@ -29,33 +30,33 @@ const mockAward: Award = {
 
 describe('AwardCard', () => {
   it('renders image with correct src and alt', () => {
-    render(<AwardCard award={mockAward} />);
+    render(<AwardCard award={mockAward} dict={vi} />);
     const img = screen.getByRole('img');
     expect(img).toHaveAttribute('src', mockAward.imageUrl);
     expect(img).toHaveAttribute('alt', mockAward.title);
   });
 
   it('renders title in gold', () => {
-    render(<AwardCard award={mockAward} />);
+    render(<AwardCard award={mockAward} dict={vi} />);
     const title = screen.getByText('Best Engineer');
     expect(title).toBeInTheDocument();
     expect(title).toHaveStyle({ color: 'var(--color-text-gold)' });
   });
 
   it('renders description in white', () => {
-    render(<AwardCard award={mockAward} />);
+    render(<AwardCard award={mockAward} dict={vi} />);
     const description = screen.getByText(mockAward.description);
     expect(description).toBeInTheDocument();
     expect(description).toHaveStyle({ color: 'var(--color-text-primary)' });
   });
 
   it('renders "Chi tiết →" text', () => {
-    render(<AwardCard award={mockAward} />);
+    render(<AwardCard award={mockAward} dict={vi} />);
     expect(screen.getByText('Chi tiết →')).toBeInTheDocument();
   });
 
   it('wraps entire card in a Link with href containing slug', () => {
-    render(<AwardCard award={mockAward} />);
+    render(<AwardCard award={mockAward} dict={vi} />);
     const link = screen.getByRole('link');
     expect(link).toHaveAttribute('href', `/awards#${mockAward.slug}`);
   });

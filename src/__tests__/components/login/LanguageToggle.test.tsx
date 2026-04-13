@@ -7,10 +7,10 @@ describe('LanguageToggle', () => {
     localStorage.clear();
   });
 
-  it('renders VN flag image and "VN" text', () => {
+  it('renders VN flag image and "VI" text', () => {
     render(<LanguageToggle />);
     expect(screen.getByAltText(/tiếng việt flag/i)).toBeInTheDocument();
-    expect(screen.getByText('VN')).toBeInTheDocument();
+    expect(screen.getByText('VI')).toBeInTheDocument();
   });
 
   it('opens dropdown when clicked', () => {
