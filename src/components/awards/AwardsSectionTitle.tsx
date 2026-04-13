@@ -1,3 +1,9 @@
+import type { Dictionary } from '@/i18n/dictionaries/vi';
+
+interface AwardsSectionTitleProps {
+  dict: Dictionary;
+}
+
 const headerStyle: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
@@ -25,12 +31,12 @@ const titleStyle: React.CSSProperties = {
   margin: 0,
 };
 
-export default function AwardsSectionTitle() {
+export default function AwardsSectionTitle({ dict }: AwardsSectionTitleProps) {
   return (
     <div style={headerStyle}>
-      <p style={captionStyle}>Sun* annual awards 2025</p>
+      <p style={captionStyle}>{dict['awards.caption']}</p>
       <hr style={dividerStyle} />
-      <h2 style={titleStyle}>{`H\u1ec7 th\u1ed1ng gi\u1ea3i th\u01b0\u1edfng SAA 2025`}</h2>
+      <h2 style={titleStyle}>{dict['awards.title']}</h2>
     </div>
   );
 }

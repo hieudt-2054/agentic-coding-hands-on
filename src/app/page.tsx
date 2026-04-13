@@ -1,6 +1,7 @@
 import { fetchEventConfig, fetchAwards, fetchKudos } from '@/services/homepage-service';
 import type { Award } from '@/types/homepage';
 import type { KudosInfo } from '@/types/homepage';
+import { getDictionary } from '@/i18n/get-dictionary';
 import AppHeader from '@/components/layout/AppHeader';
 import AppFooter from '@/components/layout/AppFooter';
 import HeroSection from '@/components/homepage/HeroSection';
@@ -10,6 +11,7 @@ import KudosSection from '@/components/homepage/KudosSection';
 import WidgetButton from '@/components/homepage/WidgetButton';
 
 export default async function Home() {
+  const dict = await getDictionary();
   let eventConfig = null;
   let awards: Award[] = [];
   let kudos: KudosInfo | null = null;
@@ -42,12 +44,12 @@ export default async function Home() {
           gap: 'var(--spacing-section-gap)',
         }}
       >
-        <HeroSection eventConfig={eventConfig} />
+        <HeroSection eventConfig={eventConfig} dict={dict} />
         <RootFurtherSection />
-        <AwardsSection awards={awards} />
-        <KudosSection kudos={kudos} />
+        <AwardsSection awards={awards} dict={dict} />
+        <KudosSection kudos={kudos} dict={dict} />
       </main>
-      <AppFooter />
+      <AppFooter dict={dict} />
       <WidgetButton />
     </>
   );

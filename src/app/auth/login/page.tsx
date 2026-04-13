@@ -1,9 +1,11 @@
 import Image from 'next/image';
+import { getDictionary } from '@/i18n/get-dictionary';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import LoginButton from '@/components/login/LoginButton';
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const dict = await getDictionary();
   return (
     <div
       className="relative flex flex-col min-h-screen"
@@ -76,9 +78,7 @@ export default function LoginPage() {
               fontFamily: 'var(--font-montserrat)',
             }}
           >
-            Bắt đầu hành trình của bạn cùng SAA 2025.
-            <br />
-            Đăng nhập để khám phá!
+            {dict['login.hero']}
           </p>
 
           {/* B.3_Login — LoginButton + error state */}

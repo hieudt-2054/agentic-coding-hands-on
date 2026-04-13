@@ -1,8 +1,10 @@
 import type { Award } from '@/types/homepage';
+import type { Dictionary } from '@/i18n/dictionaries/vi';
 import AwardCard from '@/components/homepage/AwardCard';
 
 interface AwardsSectionProps {
   awards: Award[];
+  dict: Dictionary;
 }
 
 const headerStyle: React.CSSProperties = {
@@ -42,14 +44,14 @@ const emptyStyle: React.CSSProperties = {
   minHeight: 200,
 };
 
-export default function AwardsSection({ awards }: AwardsSectionProps) {
+export default function AwardsSection({ awards, dict }: AwardsSectionProps) {
   return (
     <section className="flex flex-col" style={{ gap: 'var(--spacing-awards-grid-gap)' }}>
       {/* C1 Header */}
       <div style={headerStyle}>
-        <p style={captionStyle}>Sun* annual awards 2025</p>
+        <p style={captionStyle}>{dict['home.awards.caption']}</p>
         <hr style={dividerStyle} />
-        <h2 style={titleStyle}>Hệ thống giải thưởng</h2>
+        <h2 style={titleStyle}>{dict['home.awards.title']}</h2>
       </div>
 
       {/* C2 Grid */}
@@ -60,6 +62,7 @@ export default function AwardsSection({ awards }: AwardsSectionProps) {
               key={award.id}
               award={award}
               priority={index < 3}
+              dict={dict}
             />
           ))}
         </div>

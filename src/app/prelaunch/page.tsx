@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import { fetchEventConfig } from '@/services/homepage-service';
+import { getDictionary } from '@/i18n/get-dictionary';
 import PrelaunchCountdown from '@/components/prelaunch/PrelaunchCountdown';
 
 export default async function PrelaunchPage() {
+  const dict = await getDictionary();
   let eventConfig = null;
 
   try {
@@ -60,7 +62,7 @@ export default async function PrelaunchPage() {
               textAlign: 'center',
             }}
           >
-            Coming soon
+            {dict['common.comingSoon']}
           </h1>
         )}
       </div>

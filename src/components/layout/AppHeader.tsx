@@ -4,19 +4,21 @@ import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import LanguageToggle from '@/components/login/LanguageToggle';
-
-const NAV_LINKS = [
-  { key: 'about-saa', label: 'About SAA 2025', href: '#' },
-  { key: 'awards', label: 'Awards Information', href: '#' },
-  { key: 'kudos', label: 'Sun* Kudos', href: '#' },
-] as const;
+import { useTranslation } from '@/i18n/use-translation';
 
 interface AppHeaderProps {
   activeNavKey: string;
 }
 
 export default function AppHeader({ activeNavKey }: AppHeaderProps) {
+  const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const NAV_LINKS = [
+    { key: 'about-saa', label: t('common.nav.aboutSaa'), href: '#' },
+    { key: 'awards', label: t('common.nav.awards'), href: '#' },
+    { key: 'kudos', label: t('common.nav.kudos'), href: '#' },
+  ] as const;
 
   const closeMenu = useCallback(() => {
     setIsMenuOpen(false);
@@ -95,7 +97,7 @@ export default function AppHeader({ activeNavKey }: AppHeaderProps) {
         <LanguageToggle />
 
         <button
-          aria-label="Thông báo"
+          aria-label={t('common.nav.notifications')}
           onClick={() => console.log('TODO: open notifications')}
           className="flex items-center justify-center"
           style={{
@@ -116,7 +118,7 @@ export default function AppHeader({ activeNavKey }: AppHeaderProps) {
         </button>
 
         <button
-          aria-label="Tài khoản của bạn"
+          aria-label={t('common.nav.account')}
           onClick={() => console.log('TODO: open profile')}
           className="flex items-center justify-center"
           style={{
@@ -141,7 +143,7 @@ export default function AppHeader({ activeNavKey }: AppHeaderProps) {
         {/* Mobile hamburger button */}
         <button
           className="flex md:hidden items-center justify-center"
-          aria-label="Menu"
+          aria-label={t('common.nav.menu')}
           aria-expanded={isMenuOpen}
           onClick={() => setIsMenuOpen((prev) => !prev)}
           style={{

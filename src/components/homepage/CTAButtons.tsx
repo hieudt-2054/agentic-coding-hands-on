@@ -1,4 +1,9 @@
 import Link from 'next/link';
+import type { Dictionary } from '@/i18n/dictionaries/vi';
+
+interface CTAButtonsProps {
+  dict: Dictionary;
+}
 
 const buttonBase: React.CSSProperties = {
   width: 276,
@@ -13,7 +18,7 @@ const buttonBase: React.CSSProperties = {
   textDecoration: 'none',
 };
 
-export default function CTAButtons() {
+export default function CTAButtons({ dict }: CTAButtonsProps) {
   return (
     <div className="cta-buttons flex items-center" style={{ gap: 'var(--spacing-cta-gap)' }}>
       <Link
@@ -27,7 +32,7 @@ export default function CTAButtons() {
           transition: 'background-color 150ms ease-in-out, color 150ms ease-in-out, border-color 150ms ease-in-out',
         }}
       >
-        ABOUT AWARDS
+        {dict['home.cta.aboutAwards']}
       </Link>
       {/* TODO: update when routes confirmed */}
       <Link
@@ -42,7 +47,7 @@ export default function CTAButtons() {
           transition: 'background-color 150ms ease-in-out, color 150ms ease-in-out, border-color 150ms ease-in-out',
         }}
       >
-        ABOUT KUDOS
+        {dict['home.cta.aboutKudos']}
       </Link>
     </div>
   );

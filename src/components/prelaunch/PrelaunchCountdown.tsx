@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCountdown } from '@/hooks/use-countdown';
+import { useTranslation } from '@/i18n/use-translation';
 import { createClient } from '@/libs/supabase/client';
 import GlassDigitBox from './GlassDigitBox';
 
@@ -16,13 +17,14 @@ function splitDigits(value: number): [string, string] {
 }
 
 const UNITS = [
-  { key: 'days', label: 'DAYS' },
-  { key: 'hours', label: 'HOURS' },
-  { key: 'minutes', label: 'MINUTES' },
+  { key: 'days', labelKey: 'home.countdown.days' as const },
+  { key: 'hours', labelKey: 'home.countdown.hours' as const },
+  { key: 'minutes', labelKey: 'home.countdown.minutes' as const },
 ] as const;
 
 export default function PrelaunchCountdown({ targetDatetime }: PrelaunchCountdownProps) {
   const { days, hours, minutes, isExpired } = useCountdown(targetDatetime);
+  const { t } = useTranslation();
   const router = useRouter();
 
   useEffect(() => {
@@ -55,14 +57,14 @@ export default function PrelaunchCountdown({ targetDatetime }: PrelaunchCountdow
           margin: 0,
         }}
       >
-        Sự kiện sẽ bắt đầu sau
+        {t('prelaunch.heading')}
       </h1>
 
       <div
         className="flex items-center"
         style={{ gap: 'var(--spacing-prelaunch-unit-gap)' }}
       >
-        {UNITS.map(({ key, label }) => {
+        {UNITS.map(({ key, labelKey }) => {
           const [d1, d2] = splitDigits(values[key]);
           return (
             <div
@@ -86,7 +88,7 @@ export default function PrelaunchCountdown({ targetDatetime }: PrelaunchCountdow
                   color: 'var(--color-text-primary)',
                 }}
               >
-                {label}
+                {t(labelKey)}
               </span>
             </div>
           );

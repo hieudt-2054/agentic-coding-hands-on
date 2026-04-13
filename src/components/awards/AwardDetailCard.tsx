@@ -1,9 +1,11 @@
 import Image from 'next/image';
 import type { AwardFull } from '@/types/awards';
+import type { Dictionary } from '@/i18n/dictionaries/vi';
 import AwardMetaRow from '@/components/awards/AwardMetaRow';
 
 interface AwardDetailCardProps {
   award: AwardFull;
+  dict: Dictionary;
 }
 
 const containerStyle: React.CSSProperties = {
@@ -38,7 +40,7 @@ const contentStyle: React.CSSProperties = {
   flex: 1,
 };
 
-export default function AwardDetailCard({ award }: AwardDetailCardProps) {
+export default function AwardDetailCard({ award, dict }: AwardDetailCardProps) {
   return (
     <div
       id={award.slug}
@@ -58,11 +60,11 @@ export default function AwardDetailCard({ award }: AwardDetailCardProps) {
         <h3 style={titleStyle}>{award.title}</h3>
         <p style={descriptionStyle}>{award.description}</p>
         <AwardMetaRow
-          label={'S\u1ed1 l\u01b0\u1ee3ng gi\u1ea3i th\u01b0\u1edfng:'}
+          label={dict['awards.quantity']}
           value={`${String(award.quantity).padStart(2, '0')} ${award.unitType}`}
         />
         <AwardMetaRow
-          label={'Gi\u00e1 tr\u1ecb gi\u1ea3i th\u01b0\u1edfng:'}
+          label={dict['awards.prizeValue']}
           value={award.prizeValue}
         />
       </div>

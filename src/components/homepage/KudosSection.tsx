@@ -1,12 +1,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import type { KudosInfo } from '@/types/homepage';
+import type { Dictionary } from '@/i18n/dictionaries/vi';
 
 interface KudosSectionProps {
   kudos: KudosInfo | null;
+  dict: Dictionary;
 }
 
-export default function KudosSection({ kudos }: KudosSectionProps) {
+export default function KudosSection({ kudos, dict }: KudosSectionProps) {
   if (!kudos) {
     return <></>;
   }
@@ -116,7 +118,7 @@ export default function KudosSection({ kudos }: KudosSectionProps) {
                 transition: 'opacity 150ms ease-in-out, transform 150ms ease-in-out',
               }}
             >
-              Chi tiết
+              {dict['common.detail']}
             </Link>
           </div>
 

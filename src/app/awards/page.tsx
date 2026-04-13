@@ -8,10 +8,12 @@ import AwardsSidebar from '@/components/awards/AwardsSidebar';
 import KudosSection from '@/components/homepage/KudosSection';
 import { fetchAwardsFull } from '@/services/awards-service';
 import { fetchKudos } from '@/services/homepage-service';
+import { getDictionary } from '@/i18n/get-dictionary';
 import type { AwardFull } from '@/types/awards';
 import type { KudosInfo } from '@/types/homepage';
 
 export default async function AwardsPage() {
+  const dict = await getDictionary();
   let awards: AwardFull[] = [];
   let kudos: KudosInfo | null = null;
 
@@ -28,23 +30,23 @@ export default async function AwardsPage() {
         padding: 'var(--spacing-page-py) var(--spacing-page-px)',
         gap: 'var(--spacing-section-gap)',
       }}>
-        <AwardsSectionTitle />
+        <AwardsSectionTitle dict={dict} />
         {awards.length > 0 ? (
           <AwardsLayout sidebar={<AwardsSidebar slugs={slugs} />}>
             <div className="flex flex-col" style={{ gap: 'var(--spacing-card-stack-gap)' }}>
               {awards.map(award => (
-                <AwardDetailCard key={award.id} award={award} />
+                <AwardDetailCard key={award.id} award={award} dict={dict} />
               ))}
             </div>
           </AwardsLayout>
         ) : (
           <p style={{ color: 'var(--color-text-primary)', textAlign: 'center', padding: '48px 0' }}>
-            {'Ch\u01b0a c\u00f3 d\u1eef li\u1ec7u gi\u1ea3i th\u01b0\u1edfng'}
+            {dict['awards.empty']}
           </p>
         )}
-        <KudosSection kudos={kudos} />
+        <KudosSection kudos={kudos} dict={dict} />
       </main>
-      <AppFooter />
+      <AppFooter dict={dict} />
     </>
   );
 }

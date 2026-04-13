@@ -1,13 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import type { Dictionary } from '@/i18n/dictionaries/vi';
 
-const NAV_LINKS = [
-  { key: 'about-saa', label: 'About SAA 2025', href: '#' },
-  { key: 'awards', label: 'Awards Information', href: '#' },
-  { key: 'kudos', label: 'Sun* Kudos', href: '#' },
-] as const;
+interface AppFooterProps {
+  dict: Dictionary;
+}
 
-export default function AppFooter() {
+export default function AppFooter({ dict }: AppFooterProps) {
   return (
     <footer
       className="footer-content flex items-center justify-between"
@@ -28,7 +27,11 @@ export default function AppFooter() {
         />
 
         <nav className="footer-nav flex items-center" style={{ gap: 'var(--spacing-footer-nav-gap)' }}>
-          {NAV_LINKS.map((link) => (
+          {([
+            { key: 'about-saa', label: dict['common.nav.aboutSaa'], href: '#' },
+            { key: 'awards', label: dict['common.nav.awards'], href: '#' },
+            { key: 'kudos', label: dict['common.nav.kudos'], href: '#' },
+          ] as const).map((link) => (
             <Link
               key={link.key}
               href={link.href}
@@ -65,7 +68,7 @@ export default function AppFooter() {
           margin: 0,
         }}
       >
-        &copy; 2025 Sun* Inc. All rights reserved.
+        {dict['common.copyright']}
       </p>
     </footer>
   );

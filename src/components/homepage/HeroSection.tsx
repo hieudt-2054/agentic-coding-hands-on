@@ -1,14 +1,16 @@
 import Image from 'next/image';
 import type { EventConfig } from '@/types/homepage';
+import type { Dictionary } from '@/i18n/dictionaries/vi';
 import CountdownTimer from '@/components/homepage/CountdownTimer';
 import EventInfo from '@/components/homepage/EventInfo';
 import CTAButtons from '@/components/homepage/CTAButtons';
 
 interface HeroSectionProps {
   eventConfig: EventConfig | null;
+  dict: Dictionary;
 }
 
-export default function HeroSection({ eventConfig }: HeroSectionProps) {
+export default function HeroSection({ eventConfig, dict }: HeroSectionProps) {
   return (
     <section className="relative flex flex-col items-center" style={{ gap: 40 }}>
       {/* Keyvisual background */}
@@ -51,12 +53,13 @@ export default function HeroSection({ eventConfig }: HeroSectionProps) {
               time={eventConfig.time}
               venue={eventConfig.venue}
               streamNote={eventConfig.streamNote}
+              dict={dict}
             />
-            <CTAButtons />
+            <CTAButtons dict={dict} />
           </div>
         ) : (
           <div className="flex flex-col items-center" style={{ gap: 16 }}>
-            <CTAButtons />
+            <CTAButtons dict={dict} />
           </div>
         )}
       </div>

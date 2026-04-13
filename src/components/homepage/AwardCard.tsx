@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Award } from '@/types/homepage';
+import type { Dictionary } from '@/i18n/dictionaries/vi';
 
 interface AwardCardProps {
   award: Award;
   priority?: boolean;
+  dict: Dictionary;
 }
 
 const cardStyle: React.CSSProperties = {
@@ -49,7 +51,7 @@ const detailStyle: React.CSSProperties = {
   padding: '16px 0',
 };
 
-export default function AwardCard({ award, priority }: AwardCardProps) {
+export default function AwardCard({ award, priority, dict }: AwardCardProps) {
   return (
     <Link href={`/awards#${award.slug}`} className="award-card" style={cardStyle}>
       <Image
@@ -63,7 +65,7 @@ export default function AwardCard({ award, priority }: AwardCardProps) {
       <div className="flex flex-col">
         <p style={titleStyle}>{award.title}</p>
         <p style={descriptionStyle}>{award.description}</p>
-        <span style={detailStyle}>Chi tiết →</span>
+        <span style={detailStyle}>{dict['common.detailArrow']}</span>
       </div>
     </Link>
   );
