@@ -2,6 +2,10 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import LanguageToggle from '@/components/login/LanguageToggle';
 
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({ refresh: jest.fn() }),
+}));
+
 describe('LanguageToggle', () => {
   beforeEach(() => {
     localStorage.clear();

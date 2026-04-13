@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/hooks/use-language';
 
 const LANGUAGES = [
@@ -11,6 +12,7 @@ const LANGUAGES = [
 
 export default function LanguageToggle() {
   const { language, setLanguage } = useLanguage();
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -29,6 +31,8 @@ export default function LanguageToggle() {
   const handleSelect = (code: string) => {
     setLanguage(code);
     setIsOpen(false);
+    // Refresh server components to pick up new lang cookie
+    router.refresh();
   };
 
   const currentLang = LANGUAGES.find((l) => l.code === language) ?? LANGUAGES[0];

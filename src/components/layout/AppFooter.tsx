@@ -28,8 +28,8 @@ export default function AppFooter({ dict }: AppFooterProps) {
 
         <nav className="footer-nav flex items-center" style={{ gap: 'var(--spacing-footer-nav-gap)' }}>
           {([
-            { key: 'about-saa', label: dict['common.nav.aboutSaa'], href: '#' },
-            { key: 'awards', label: dict['common.nav.awards'], href: '#' },
+            { key: 'about-saa', label: dict['common.nav.aboutSaa'], href: '/' },
+            { key: 'awards', label: dict['common.nav.awards'], href: '/awards' },
             { key: 'kudos', label: dict['common.nav.kudos'], href: '#' },
           ] as const).map((link) => (
             <Link

@@ -15,8 +15,8 @@ export default function AppHeader({ activeNavKey }: AppHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const NAV_LINKS = [
-    { key: 'about-saa', label: t('common.nav.aboutSaa'), href: '#' },
-    { key: 'awards', label: t('common.nav.awards'), href: '#' },
+    { key: 'about-saa', label: t('common.nav.aboutSaa'), href: '/' },
+    { key: 'awards', label: t('common.nav.awards'), href: '/awards' },
     { key: 'kudos', label: t('common.nav.kudos'), href: '#' },
   ] as const;
 
