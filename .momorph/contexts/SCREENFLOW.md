@@ -14,9 +14,9 @@
 | Metric | Count |
 |--------|-------|
 | Total Screens | 150+ |
-| Discovered | 3 |
-| Remaining | ~147 |
-| Completion | ~2% |
+| Discovered | 4 |
+| Remaining | ~146 |
+| Completion | ~3% |
 
 ---
 
@@ -27,7 +27,8 @@
 | 1 | Login | GzbNeVGJHz | https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C?node-id=GzbNeVGJHz | discovered | — | POST /auth/google, GET /auth/me | Homepage SAA, Dropdown-ngôn ngữ |
 | 2 | Homepage SAA | i87tDx10uM | https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C?node-id=i87tDx10uM | discovered | — | GET /awards, GET /kudos | About SAA 2025, Awards Information, Sun* Kudos, Dropdown-profile, Dropdown-ngôn ngữ, Notification panel, Quick action menu |
 | 3 | Countdown - Prelaunch page | 8PJQswPZmU | https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C?node-id=8PJQswPZmU | discovered | — | GET event_config (Supabase) | Homepage SAA (on launch + auth), Login (on launch + unauth) |
-| 4 | Dropdown-ngôn ngữ | hUyaaugye2 | https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C?node-id=hUyaaugye2 | pending | — | — | — |
+| 4 | Awards Information (Hệ thống giải) | zFYDgyj_pD | https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C?node-id=zFYDgyj_pD | discovered | — | GET /awards (extended), GET /kudos | Sun* Kudos, Homepage SAA (via header) |
+| 5 | Dropdown-ngôn ngữ | hUyaaugye2 | https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C?node-id=hUyaaugye2 | pending | — | — | — |
 
 ---
 
