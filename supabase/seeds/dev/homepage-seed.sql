@@ -17,4 +17,4 @@ INSERT INTO public.kudos_info (label, title, description, detail_url, decoration
 
 -- Event configuration
 INSERT INTO public.event_config (event_name, target_datetime, time_display, venue, stream_note) VALUES
-  ('saa-2025', '2025-12-05T18:30:00+07:00', '18h30', 'Nhà hát Lớn Hà Nội', 'Tường thuật trực tiếp tại website');
+  ('saa-2025', '2026-12-05T18:30:00+07:00', '18h30', 'Nhà hát Lớn Hà Nội', 'Tường thuật trực tiếp tại website');
