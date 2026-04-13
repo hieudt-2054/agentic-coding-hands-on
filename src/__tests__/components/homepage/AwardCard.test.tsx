@@ -57,6 +57,6 @@ describe('AwardCard', () => {
   it('wraps entire card in a Link with href containing slug', () => {
     render(<AwardCard award={mockAward} />);
     const link = screen.getByRole('link');
-    expect(link).toHaveAttribute('href', `#${mockAward.slug}`);
+    expect(link).toHaveAttribute('href', `/awards#${mockAward.slug}`);
   });
 });

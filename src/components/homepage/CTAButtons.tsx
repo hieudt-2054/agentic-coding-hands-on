@@ -16,9 +16,8 @@ const buttonBase: React.CSSProperties = {
 export default function CTAButtons() {
   return (
     <div className="cta-buttons flex items-center" style={{ gap: 'var(--spacing-cta-gap)' }}>
-      {/* TODO: update when routes confirmed */}
       <Link
-        href="#"
+        href="/awards"
         className="cta-primary"
         style={{
           ...buttonBase,

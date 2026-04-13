@@ -51,7 +51,7 @@ const detailStyle: React.CSSProperties = {
 
 export default function AwardCard({ award, priority }: AwardCardProps) {
   return (
-    <Link href={`#${award.slug}`} className="award-card" style={cardStyle}>
+    <Link href={`/awards#${award.slug}`} className="award-card" style={cardStyle}>
       <Image
         src={award.imageUrl}
         alt={award.title}
