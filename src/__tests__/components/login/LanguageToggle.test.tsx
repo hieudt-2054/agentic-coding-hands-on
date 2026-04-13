@@ -9,7 +9,7 @@ describe('LanguageToggle', () => {
 
   it('renders VN flag image and "VN" text', () => {
     render(<LanguageToggle />);
-    expect(screen.getByAltText(/vietnam flag/i)).toBeInTheDocument();
+    expect(screen.getByAltText(/tiếng việt flag/i)).toBeInTheDocument();
     expect(screen.getByText('VN')).toBeInTheDocument();
   });
 
