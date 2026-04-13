@@ -5,8 +5,8 @@ import Image from 'next/image';
 import { useLanguage } from '@/hooks/use-language';
 
 const LANGUAGES = [
-  { code: 'vn', label: 'Tiếng Việt', ariaLabel: 'Tiếng Việt' },
-  { code: 'en', label: 'English', ariaLabel: 'English' },
+  { code: 'vn', label: 'Tiếng Việt', ariaLabel: 'Tiếng Việt', flag: '/assets/login/icons/vn-flag.svg' },
+  { code: 'en', label: 'English', ariaLabel: 'English', flag: '/assets/homepage/icons/en-flag.svg' },
 ] as const;
 
 export default function LanguageToggle() {
@@ -71,8 +71,8 @@ export default function LanguageToggle() {
         }}
       >
         <Image
-          src="/assets/login/icons/vn-flag.svg"
-          alt="Vietnam flag"
+          src={currentLang.flag}
+          alt={`${currentLang.label} flag`}
           width={24}
           height={24}
         />
