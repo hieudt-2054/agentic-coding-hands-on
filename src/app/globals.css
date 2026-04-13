@@ -389,3 +389,88 @@ body {
     background: rgba(255, 255, 255, 0.15) !important;
   }
 }
+
+/* ============================================================
+   Design Tokens — Awards Information (zFYDgyj_pD)
+   ============================================================ */
+
+:root {
+  --spacing-sidebar-width: 200px;
+  --spacing-two-col-gap: 238px;
+  --spacing-card-stack-gap: 80px;
+  --spacing-card-inner-gap: 24px;
+  --spacing-meta-gap: 16px;
+  --border-sidebar-active: 2px solid #FFEA9E;
+}
+
+/* Sidebar nav item states */
+.sidebar-nav-item {
+  transition: color 150ms ease-in-out, background-color 150ms ease-in-out;
+}
+.sidebar-nav-item:hover {
+  color: #FFEA9E;
+  background-color: rgba(255, 234, 158, 0.05);
+}
+.sidebar-nav-item-active {
+  color: #FFEA9E !important;
+  background-color: rgba(255, 234, 158, 0.10);
+  border-left: 2px solid #FFEA9E;
+}
+.sidebar-nav-item:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+/* Awards — Mobile (< 768px) */
+@media (max-width: 767px) {
+  :root {
+    --spacing-two-col-gap: 24px;
+    --spacing-card-stack-gap: 40px;
+    --spacing-sidebar-width: 100%;
+  }
+  .awards-sidebar {
+    position: relative !important;
+    top: auto !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    gap: 8px !important;
+    padding-bottom: 12px !important;
+  }
+  .awards-sidebar .sidebar-nav-item,
+  .awards-sidebar .sidebar-nav-item-active {
+    padding: 8px 16px !important;
+    border: 1px solid #2E3940 !important;
+    border-radius: 20px !important;
+    border-left: 1px solid #2E3940 !important;
+  }
+  .awards-sidebar .sidebar-nav-item-active {
+    border-color: #FFEA9E !important;
+    background-color: rgba(255, 234, 158, 0.10) !important;
+  }
+  .awards-layout {
+    flex-direction: column !important;
+    gap: var(--spacing-two-col-gap) !important;
+  }
+  .award-detail-card {
+    flex-direction: column !important;
+  }
+  .award-detail-image {
+    width: 240px !important;
+    height: 240px !important;
+  }
+}
+
+/* Awards — Tablet (768px–1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --spacing-two-col-gap: 48px;
+    --spacing-sidebar-width: 160px;
+    --spacing-card-stack-gap: 60px;
+  }
+  .award-detail-image {
+    width: 280px !important;
+    height: 280px !important;
+  }
+}
