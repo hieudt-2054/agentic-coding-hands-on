@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useLanguage } from '@/hooks/use-language';
 
 const LANGUAGES = [
-  { code: 'vn', label: 'Tiếng Việt', ariaLabel: 'Tiếng Việt', flag: '/assets/login/icons/vn-flag.svg' },
+  { code: 'vi', label: 'Tiếng Việt', ariaLabel: 'Tiếng Việt', flag: '/assets/login/icons/vn-flag.svg' },
   { code: 'en', label: 'English', ariaLabel: 'English', flag: '/assets/homepage/icons/en-flag.svg' },
 ] as const;
 

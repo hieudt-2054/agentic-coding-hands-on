@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 
 const STORAGE_KEY = 'lang';
-const DEFAULT_LANGUAGE = 'vn';
+const DEFAULT_LANGUAGE = 'vi';
 
 export function useLanguage() {
   const [language, setLanguageState] = useState<string>(DEFAULT_LANGUAGE);
@@ -23,6 +23,8 @@ export function useLanguage() {
     } catch {
       // localStorage not available — update state only
     }
+    // Set cookie for Server Components to read
+    document.cookie = `lang=${lang};path=/;max-age=31536000;SameSite=Lax`;
     setLanguageState(lang);
   };
 
