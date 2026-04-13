@@ -45,8 +45,11 @@ export type Database = {
           id: string
           image_url: string
           is_active: boolean
+          prize_value: string
+          quantity: number
           slug: string
           title: string
+          unit_type: string
           updated_at: string
         }
         Insert: {
@@ -57,8 +60,11 @@ export type Database = {
           id?: string
           image_url: string
           is_active?: boolean
+          prize_value?: string
+          quantity?: number
           slug: string
           title: string
+          unit_type?: string
           updated_at?: string
         }
         Update: {
@@ -69,8 +75,11 @@ export type Database = {
           id?: string
           image_url?: string
           is_active?: boolean
+          prize_value?: string
+          quantity?: number
           slug?: string
           title?: string
+          unit_type?: string
           updated_at?: string
         }
         Relationships: []
@@ -288,3 +297,4 @@ export const Constants = {
     Enums: {},
   },
 } as const
+
