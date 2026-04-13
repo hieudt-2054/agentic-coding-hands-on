@@ -14,9 +14,9 @@
 | Metric | Count |
 |--------|-------|
 | Total Screens | 150+ |
-| Discovered | 2 |
-| Remaining | ~148 |
-| Completion | ~1% |
+| Discovered | 3 |
+| Remaining | ~147 |
+| Completion | ~2% |
 
 ---
 
@@ -26,7 +26,7 @@
 |---|-------------|----------|------------|--------|-------------|----------------|----------------|
 | 1 | Login | GzbNeVGJHz | https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C?node-id=GzbNeVGJHz | discovered | — | POST /auth/google, GET /auth/me | Homepage SAA, Dropdown-ngôn ngữ |
 | 2 | Homepage SAA | i87tDx10uM | https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C?node-id=i87tDx10uM | discovered | — | GET /awards, GET /kudos | About SAA 2025, Awards Information, Sun* Kudos, Dropdown-profile, Dropdown-ngôn ngữ, Notification panel, Quick action menu |
-| 3 | Countdown - Prelaunch page | 8PJQswPZmU | https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C?node-id=8PJQswPZmU | pending | — | — | — |
+| 3 | Countdown - Prelaunch page | 8PJQswPZmU | https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C?node-id=8PJQswPZmU | discovered | — | GET event_config (Supabase) | Homepage SAA (on launch + auth), Login (on launch + unauth) |
 | 4 | Dropdown-ngôn ngữ | hUyaaugye2 | https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C?node-id=hUyaaugye2 | pending | — | — | — |
 
 ---
@@ -281,13 +281,43 @@ flowchart LR
 |------|--------|---------|-------|
 | 2026-04-08 | Initial discovery | Login (GzbNeVGJHz) | Auth flow documented; Google OAuth only, no register/forgot-password |
 | 2026-04-12 | Screen discovery | Homepage SAA (i87tDx10uM) | Post-login hub; nav to Awards, Kudos, About SAA; header overlays (profile, lang, notif); award card deep-links with hash; Widget Button quick action |
+| 2026-04-13 | Screen discovery | Countdown - Prelaunch (8PJQswPZmU) | Standalone holding page; countdown timer only; public route; no header/footer; redirects to Login/Homepage on launch |
+
+---
+
+## Countdown - Prelaunch Screen Detail (8PJQswPZmU)
+
+### Page URL
+`/prelaunch`
+
+### Interactive Elements
+| Element | Type | Action | Navigation Target |
+|---------|------|--------|-------------------|
+| Countdown Timer | Live display | Auto-updates every 60 seconds | — |
+
+### Navigation FROM Countdown - Prelaunch
+| Trigger | Target Screen | Target URL / Notes |
+|---------|--------------|-------------------|
+| Countdown reaches zero + user authenticated | Homepage SAA | `/` |
+| Countdown reaches zero + user NOT authenticated | Login | `/auth/login` |
+
+### Navigation TO Countdown - Prelaunch
+| Source | Trigger |
+|--------|---------|
+| Direct URL access | User visits `/prelaunch` before campaign launch |
+
+### Notes
+- This is a PUBLIC route — no authentication required
+- Shares keyvisual background with Homepage SAA (different gradient: 18deg vs 12deg)
+- Reuses `event_config` table, `fetchEventConfig()` service, and `use-countdown` hook from Homepage SAA
+- Countdown uses glass-morphism digit boxes (unique to this page)
 
 ---
 
 ## Next Steps
 
 - [x] Discover Homepage SAA (i87tDx10uM) — map post-login navigation
-- [ ] Discover Countdown - Prelaunch page (8PJQswPZmU)
+- [x] Discover Countdown - Prelaunch page (8PJQswPZmU)
 - [ ] Discover Admin screens (Admin - Overview, Admin - User, Admin - Setting, etc.)
 - [ ] Discover Profile screens (Profile bản thân, Profile người khác)
 - [ ] Discover Sun* Kudos flow (Viết Kudo, View Kudo, Gửi lời chúc Kudos)
