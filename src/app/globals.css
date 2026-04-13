@@ -126,3 +126,220 @@ body {
 
   .key-visual { max-width: 320px !important; }
 }
+
+/* ============================================================
+   Design Tokens — Homepage SAA (i87tDx10uM)
+   Source: .momorph/specs/i87tDx10uM-HomepageSAA/design-style.md
+   ============================================================ */
+
+:root {
+  /* Colors */
+  --color-app-header-bg: rgba(16, 20, 23, 0.8);
+  --color-text-gold: #FFEA9E;
+  --color-text-secondary: #DBD1C1;
+  --color-btn-primary-bg: #FFEA9E;
+  --color-btn-primary-text: #00101A;
+  --color-btn-secondary-bg: rgba(255, 234, 158, 0.10);
+  --color-btn-secondary-border: #998C5F;
+  --color-card-bg: #0F0F0F;
+  --color-card-border: #FFEA9E;
+  --color-nav-active-bg: rgba(255, 234, 158, 0.10);
+  --color-keyvisual-gradient: linear-gradient(12deg, #00101A 23.7%, rgba(0,18,29,0.46) 38.34%, rgba(0,19,32,0) 48.92%);
+  --shadow-card-glow: 0 4px 4px 0 rgba(0,0,0,0.25), 0 0 6px 0 #FAE287;
+
+  /* Typography */
+  --text-section-title-size: 57px;
+  --text-section-title-weight: 700;
+  --text-section-title-line-height: 64px;
+  --text-section-caption-size: 24px;
+  --text-countdown-digit-size: 49px;
+  --text-countdown-label-size: 24px;
+  --text-event-value-size: 24px;
+  --text-event-label-size: 16px;
+  --text-cta-btn-size: 22px;
+  --text-nav-link-size: 14px;
+  --text-nav-link-footer-size: 16px;
+  --text-card-title-size: 24px;
+  --text-card-desc-size: 16px;
+  --text-kudos-btn-size: 16px;
+  --text-widget-slash-size: 24px;
+  --font-digital-numbers: 'Digital Numbers', 'Courier New', monospace;
+  --font-svn-gotham: 'SVN-Gotham', var(--font-montserrat);
+
+  /* Spacing */
+  --spacing-page-px: 144px;
+  --spacing-page-py: 96px;
+  --spacing-section-gap: 120px;
+  --spacing-awards-grid-gap: 80px;
+  --spacing-award-card-gap: 24px;
+  --spacing-countdown-gap: 40px;
+  --spacing-cta-gap: 40px;
+  --spacing-kudos-content-gap: 32px;
+  --spacing-footer-nav-gap: 48px;
+  --spacing-footer-logo-nav-gap: 80px;
+
+  /* Border & Radius */
+  --radius-award-img: 24px;
+  --radius-kudos-card: 16px;
+  --radius-btn-primary: 8px;
+  --radius-btn-secondary: 8px;
+  --radius-btn-details: 4px;
+  --radius-widget: 100px;
+  --border-award-img: 0.955px solid #FFEA9E;
+  --border-section-divider: 1px solid #2E3940;
+}
+
+/* Font-face declarations — Homepage SAA */
+@font-face {
+  font-family: 'Digital Numbers';
+  src: url('/assets/homepage/fonts/digital-numbers.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SVN-Gotham';
+  src: url('/assets/homepage/fonts/svn-gotham.woff2') format('woff2');
+  font-display: swap;
+}
+
+/* ============================================================
+   Responsive overrides — Homepage SAA
+   ============================================================ */
+
+/* Mobile (< 768px) */
+@media (max-width: 767px) {
+  :root {
+    --spacing-page-px: 16px;
+    --spacing-page-py: 48px;
+    --spacing-section-gap: 40px;
+  }
+}
+
+/* Tablet (768px–1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --spacing-page-px: 48px;
+    --spacing-page-py: 64px;
+    --spacing-section-gap: 64px;
+  }
+}
+
+/* ============================================================
+   Hover / Focus states — Homepage SAA (T049)
+   ============================================================ */
+
+/* CTA button hover states */
+.cta-primary:hover {
+  background-color: rgba(255, 234, 158, 0.10) !important;
+  color: #FFFFFF !important;
+  border: 1px solid #998C5F;
+}
+.cta-secondary:hover {
+  background-color: #FFEA9E !important;
+  color: #00101A !important;
+  border-color: transparent;
+}
+.cta-primary:focus-visible,
+.cta-secondary:focus-visible {
+  outline: 2px solid #FFFFFF;
+  outline-offset: 2px;
+}
+/* Nav link hover states */
+.nav-link:hover {
+  background-color: rgba(255, 234, 158, 0.10);
+  border-radius: 4px;
+}
+.nav-link:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+/* Award card hover states */
+.award-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px 0 rgba(0,0,0,0.35), 0 0 12px 0 #FAE287;
+}
+.award-card:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+/* Kudos detail button hover */
+.kudos-detail-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+.kudos-detail-btn:focus-visible {
+  outline: 2px solid #FFFFFF;
+  outline-offset: 2px;
+}
+/* Widget button focus */
+.widget-btn:focus-visible {
+  outline: 2px solid #FFFFFF;
+  outline-offset: 2px;
+}
+/* Footer nav link hover */
+.footer-nav-link:hover {
+  background-color: rgba(255, 234, 158, 0.10);
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin: -4px -8px;
+}
+.footer-nav-link:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   Responsive overrides — Homepage SAA components (T048)
+   ============================================================ */
+
+/* Mobile (< 768px) */
+@media (max-width: 767px) {
+  .awards-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+  .cta-buttons {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  .cta-buttons a {
+    width: 100% !important;
+    text-align: center;
+  }
+  .kudos-inner {
+    flex-direction: column !important;
+    height: auto !important;
+    padding: 32px !important;
+  }
+  .kudos-decoration {
+    display: none !important;
+  }
+  .footer-content {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 24px !important;
+    text-align: center;
+  }
+  .footer-left {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 24px !important;
+  }
+  .footer-nav {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 16px !important;
+  }
+}
+
+/* Tablet (768px–1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .awards-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 48px !important;
+  }
+  .kudos-inner {
+    flex-direction: column !important;
+    height: auto !important;
+  }
+}
