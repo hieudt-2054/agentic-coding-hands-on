@@ -343,3 +343,49 @@ body {
     height: auto !important;
   }
 }
+
+/* ============================================================
+   Design Tokens — Countdown Prelaunch (8PJQswPZmU)
+   ============================================================ */
+
+:root {
+  --color-prelaunch-gradient: linear-gradient(18deg, #00101A 15.48%, rgba(0,18,29,0.46) 52.13%, rgba(0,19,32,0) 63.41%);
+  --text-prelaunch-heading-size: 36px;
+  --text-prelaunch-digit-size: 73.7px;
+  --text-prelaunch-label-size: 36px;
+  --spacing-prelaunch-unit-gap: 60px;
+  --spacing-prelaunch-digit-gap: 21px;
+  --spacing-prelaunch-digit-label-gap: 21px;
+  --radius-prelaunch-digit: 12px;
+  --border-prelaunch-digit: 0.75px solid #FFEA9E;
+}
+
+/* Prelaunch — Mobile (< 768px) */
+@media (max-width: 767px) {
+  :root {
+    --text-prelaunch-heading-size: 24px;
+    --text-prelaunch-digit-size: 55px;
+    --text-prelaunch-label-size: 24px;
+    --spacing-prelaunch-unit-gap: 24px;
+    --spacing-prelaunch-digit-gap: 12px;
+    --spacing-prelaunch-digit-label-gap: 12px;
+  }
+  .prelaunch-digit-box {
+    width: 60px !important;
+    height: 95px !important;
+  }
+}
+
+/* Prelaunch — Tablet (768px–1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --spacing-prelaunch-unit-gap: 40px;
+  }
+}
+
+/* Prelaunch — backdrop-filter fallback */
+@supports not (backdrop-filter: blur(1px)) {
+  .prelaunch-digit-box {
+    background: rgba(255, 255, 255, 0.15) !important;
+  }
+}
