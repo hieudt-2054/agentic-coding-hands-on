@@ -43,7 +43,7 @@ export async function fetchEventConfig(): Promise<EventConfig | null> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from('event_config')
-    .select('target_datetime, time_display, venue, stream_note')
+    .select('target_datetime, time_display, venue, stream_note, double_heart_active, highlight_limit')
     .eq('is_active', true)
     .limit(1)
     .single();
@@ -54,5 +54,7 @@ export async function fetchEventConfig(): Promise<EventConfig | null> {
     time: data.time_display,
     venue: data.venue,
     streamNote: data.stream_note,
+    doubleHeartActive: data.double_heart_active ?? false,
+    highlightLimit: data.highlight_limit ?? 5,
   };
 }

@@ -20,4 +20,6 @@ export interface EventConfig {
   time: string;
   venue: string;
   streamNote: string | null;
+  doubleHeartActive: boolean;
+  highlightLimit: number;
 }

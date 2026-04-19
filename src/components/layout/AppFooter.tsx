@@ -30,7 +30,7 @@ export default function AppFooter({ dict }: AppFooterProps) {
           {([
             { key: 'about-saa', label: dict['common.nav.aboutSaa'], href: '/' },
             { key: 'awards', label: dict['common.nav.awards'], href: '/awards' },
-            { key: 'kudos', label: dict['common.nav.kudos'], href: '#' },
+            { key: 'kudos', label: dict['common.nav.kudos'], href: '/kudos' },
           ] as const).map((link) => (
             <Link
               key={link.key}

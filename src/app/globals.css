@@ -474,3 +474,189 @@ body {
     height: 280px !important;
   }
 }
+
+/* ============================================================
+   Design Tokens — Sun* Kudos (MaZUn5xHXZ)
+   Source: .momorph/specs/MaZUn5xHXZ-sun-kudos-live-board/design-style.md
+   ============================================================ */
+
+:root {
+  /* Colors — dark base + gold accent (many tokens already exist from Homepage) */
+  --color-kudos-page: #00101A;
+  --color-kudos-panel: #00070C;
+  --color-kudos-card-cream: #FFF8E1;
+  --color-kudos-card-cream-hover: #FFF3C6;
+  --color-kudos-card-cream-active: #FAE287;
+  --color-kudos-heart-active: #D4271D;
+  --color-kudos-heart-accent: #F17676;
+  --color-kudos-muted: #999999;
+  --color-kudos-text-on-light: #00101A;
+  --color-kudos-secondary-2: #2E3940;
+
+  /* Typography */
+  --text-kudos-hero-size: 57px;
+  --text-kudos-hero-line-height: 64px;
+  --text-kudos-hero-letter-spacing: -0.25px;
+  --text-kudos-counter-size: 36px;
+  --text-kudos-counter-line-height: 44px;
+  --text-kudos-stat-value-size: 32px;
+  --text-kudos-stat-value-line-height: 40px;
+  --text-kudos-stat-label-size: 22px;
+  --text-kudos-stat-label-line-height: 28px;
+  --text-kudos-card-name-size: 20px;
+  --text-kudos-card-name-line-height: 28px;
+
+  /* Spacing */
+  --spacing-kudos-card-gap: 16px;
+  --spacing-kudos-feed-gap: 24px;
+  --spacing-kudos-section-gap: 40px;
+  --spacing-kudos-two-col-gap: 40px;
+
+  /* Radii */
+  --radius-kudos-filter: 4px;
+  --radius-kudos-open-gift: 8px;
+  --radius-kudos-card-highlight: 16px;
+  --radius-kudos-panel: 17px;
+  --radius-kudos-card-feed: 24px;
+  --radius-kudos-canvas: 47.14px;
+  --radius-kudos-pill: 68px;
+  --radius-kudos-pill-sm: 46.404px;
+
+  /* Shadows */
+  --shadow-kudos-card-hover: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-kudos-dropdown: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --shadow-kudos-modal: 0 16px 40px rgba(0, 0, 0, 0.50);
+}
+
+/* Mobile (< 768px) — Sun* Kudos responsive overrides */
+@media (max-width: 767px) {
+  :root {
+    --text-kudos-hero-size: 32px;
+    --text-kudos-hero-line-height: 40px;
+    --spacing-kudos-section-gap: 24px;
+    --spacing-kudos-two-col-gap: 16px;
+  }
+}
+
+/* Tablet (768px–1023px) — Sun* Kudos responsive overrides */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --text-kudos-hero-size: 44px;
+    --text-kudos-hero-line-height: 52px;
+    --spacing-kudos-section-gap: 32px;
+    --spacing-kudos-two-col-gap: 24px;
+  }
+}
+
+/* Hover / focus states — Sun* Kudos */
+.kudos-pill-cta:hover {
+  background-color: rgba(255, 234, 158, 0.40) !important;
+}
+.kudos-pill-cta:focus-visible,
+.kudos-filter-btn:focus-visible,
+.kudos-open-gift-btn:focus-visible {
+  outline: 2px solid #FFEA9E;
+  outline-offset: 2px;
+}
+.kudos-filter-btn:hover {
+  background-color: rgba(255, 234, 158, 0.25);
+}
+.kudos-filter-btn[aria-expanded="true"] svg.chevron {
+  transform: rotate(180deg);
+}
+.kudos-card-feed:hover {
+  box-shadow: var(--shadow-kudos-card-hover);
+  cursor: pointer;
+}
+.kudos-open-gift-btn:hover:not(:disabled) {
+  background-color: var(--color-kudos-card-cream-hover);
+}
+.kudos-open-gift-btn:active:not(:disabled) {
+  background-color: var(--color-kudos-card-cream-active);
+}
+.kudos-open-gift-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Reduced-motion — Sun* Kudos */
+@media (prefers-reduced-motion: reduce) {
+  .kudos-ticker,
+  .kudos-carousel,
+  .kudos-heart-pulse {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ============================================================
+   Sun* Kudos — Animations (not gated; reduced-motion handled above)
+   ============================================================ */
+
+@keyframes kudos-ticker-fadein {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes kudos-skeleton-pulse {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 0.80; }
+}
+
+/* Two-column All-Kudos collapses on mobile/tablet */
+@media (max-width: 1023px) {
+  .kudos-two-col {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Highlight carousel — responsive viewport */
+@media (max-width: 640px) {
+  .kudos-carousel-viewport {
+    max-width: calc(100vw - 96px) !important;
+  }
+}
+
+/* Sun* Kudos — Keyvisual background anchored behind the hero.
+   Uses the SVG keyvisual as a pseudo-element so content stays on top via z-index. */
+.kudos-page-shell {
+  position: relative;
+  isolation: isolate;
+  background: var(--color-kudos-page, #00101A);
+  min-height: 100vh;
+}
+.kudos-page-shell::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 720px;
+  background-image: url('/assets/kudos/images/kv-kudos.svg');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  z-index: 0;
+  pointer-events: none;
+}
+.kudos-page-shell::after {
+  /* Cover fade: keyvisual bleeds into page bg so subsequent sections sit on solid background */
+  content: '';
+  position: absolute;
+  top: 480px;
+  left: 0;
+  right: 0;
+  height: 240px;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 16, 26, 0) 0%,
+    rgba(0, 16, 26, 1) 100%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+.kudos-page-shell > * {
+  position: relative;
+  z-index: 1;
+}

@@ -17,7 +17,7 @@ export default function AppHeader({ activeNavKey }: AppHeaderProps) {
   const NAV_LINKS = [
     { key: 'about-saa', label: t('common.nav.aboutSaa'), href: '/' },
     { key: 'awards', label: t('common.nav.awards'), href: '/awards' },
-    { key: 'kudos', label: t('common.nav.kudos'), href: '#' },
+    { key: 'kudos', label: t('common.nav.kudos'), href: '/kudos' },
   ] as const;
 
   const closeMenu = useCallback(() => {

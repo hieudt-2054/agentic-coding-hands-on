@@ -1,0 +1,48 @@
+<svg width="1440" height="720" viewBox="0 0 1440 720" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="28%" r="60%">
+      <stop offset="0%" stop-color="#FFEA9E" stop-opacity="0.28"/>
+      <stop offset="45%" stop-color="#FFEA9E" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#00101A" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orbit-l" cx="18%" cy="70%" r="40%">
+      <stop offset="0%" stop-color="#D4271D" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#00101A" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orbit-r" cx="82%" cy="62%" r="48%">
+      <stop offset="0%" stop-color="#FFEA9E" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#00101A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="cover" x1="0" y1="1" x2="0.6" y2="0">
+      <stop offset="14.74%" stop-color="#00101A" stop-opacity="1"/>
+      <stop offset="47.8%" stop-color="#001320" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1440" height="720" fill="#00101A"/>
+  <rect width="1440" height="720" fill="url(#orbit-l)"/>
+  <rect width="1440" height="720" fill="url(#orbit-r)"/>
+  <rect width="1440" height="720" fill="url(#glow)"/>
+
+  <!-- subtle star field -->
+  <g fill="#FFEA9E" opacity="0.55">
+    <circle cx="120"  cy="120" r="1.4"/>
+    <circle cx="220"  cy="200" r="1.0"/>
+    <circle cx="360"  cy="95"  r="1.8"/>
+    <circle cx="520"  cy="170" r="1.2"/>
+    <circle cx="700"  cy="80"  r="1.6"/>
+    <circle cx="860"  cy="140" r="1.1"/>
+    <circle cx="980"  cy="220" r="1.5"/>
+    <circle cx="1120" cy="110" r="1.2"/>
+    <circle cx="1260" cy="180" r="1.3"/>
+    <circle cx="1340" cy="260" r="1.8"/>
+    <circle cx="180"  cy="320" r="1.0"/>
+    <circle cx="420"  cy="380" r="1.4"/>
+    <circle cx="640"  cy="300" r="1.2"/>
+    <circle cx="820"  cy="360" r="1.0"/>
+    <circle cx="1060" cy="340" r="1.6"/>
+    <circle cx="1220" cy="420" r="1.2"/>
+  </g>
+
+  <rect width="1440" height="720" fill="url(#cover)"/>
+</svg>

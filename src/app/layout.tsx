@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import { Montserrat, Montserrat_Alternates } from 'next/font/google';
+import QueryProvider from '@/providers/QueryProvider';
+import ToastProvider from '@/providers/ToastProvider';
+import WebVitalsReporter from '@/components/WebVitalsReporter';
 import './globals.css';
 
 const montserrat = Montserrat({
@@ -31,7 +34,12 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body className={`${montserrat.variable} ${montserratAlt.variable} antialiased`}>
-        {children}
+        <QueryProvider>
+          <ToastProvider>
+            <WebVitalsReporter />
+            {children}
+          </ToastProvider>
+        </QueryProvider>
       </body>
     </html>
   );
