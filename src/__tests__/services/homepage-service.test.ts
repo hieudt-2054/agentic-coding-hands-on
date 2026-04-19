@@ -156,6 +156,8 @@ describe('homepage-service', () => {
         time_display: '18:00 - 21:00',
         venue: 'Grand Hall',
         stream_note: 'Live on YouTube',
+        double_heart_active: true,
+        highlight_limit: 7,
       };
 
       const mockSingle = jest.fn().mockResolvedValue({ data: dbRow, error: null });
@@ -172,6 +174,8 @@ describe('homepage-service', () => {
         time: '18:00 - 21:00',
         venue: 'Grand Hall',
         streamNote: 'Live on YouTube',
+        doubleHeartActive: true,
+        highlightLimit: 7,
       });
     });
 
