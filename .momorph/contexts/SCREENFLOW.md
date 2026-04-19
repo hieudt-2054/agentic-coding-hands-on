@@ -5,7 +5,7 @@
 - **Figma File Key**: 9ypp4enmFmdK3YAFJLIu6C
 - **Figma URL**: https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C
 - **Created**: 2026-04-08
-- **Last Updated**: 2026-04-12
+- **Last Updated**: 2026-04-19
 
 ---
 
@@ -14,8 +14,8 @@
 | Metric | Count |
 |--------|-------|
 | Total Screens | 150+ |
-| Discovered | 4 |
-| Remaining | ~146 |
+| Discovered | 5 |
+| Remaining | ~145 |
 | Completion | ~3% |
 
 ---
@@ -28,7 +28,8 @@
 | 2 | Homepage SAA | i87tDx10uM | https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C?node-id=i87tDx10uM | discovered | — | GET /awards, GET /kudos | About SAA 2025, Awards Information, Sun* Kudos, Dropdown-profile, Dropdown-ngôn ngữ, Notification panel, Quick action menu |
 | 3 | Countdown - Prelaunch page | 8PJQswPZmU | https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C?node-id=8PJQswPZmU | discovered | — | GET event_config (Supabase) | Homepage SAA (on launch + auth), Login (on launch + unauth) |
 | 4 | Awards Information (Hệ thống giải) | zFYDgyj_pD | https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C?node-id=zFYDgyj_pD | discovered | — | GET /awards (extended), GET /kudos | Sun* Kudos, Homepage SAA (via header) |
-| 5 | Dropdown-ngôn ngữ | hUyaaugye2 | https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C?node-id=hUyaaugye2 | pending | — | — | — |
+| 5 | Sun* Kudos - Live board | MaZUn5xHXZ | https://momorph.ai/files/9ypp4enmFmdK3YAFJLIu6C/screens/MaZUn5xHXZ | implemented | screen_specs/sun-kudos-live-board.md | Supabase (kudos, profiles, hashtags, departments, kudo_hearts, secret_boxes, live_kudo_events) + RPC toggle_kudo_heart + RPC open_secret_box + Realtime `kudos_live` | Viết Kudo (stub), Tìm kiếm Sunner (stub), Profile người khác (stub), View Kudo (stub), Gửi lời chúc Kudos, Homepage SAA, Awards Information, Dropdown-ngôn ngữ, Notification panel, Quick action menu, Hashtag filter dropdown, Department filter dropdown |
+| 6 | Dropdown-ngôn ngữ | hUyaaugye2 | https://www.figma.com/design/9ypp4enmFmdK3YAFJLIu6C?node-id=hUyaaugye2 | pending | — | — | — |
 
 ---
 
@@ -45,7 +46,12 @@ flowchart TD
         Countdown["Countdown - Prelaunch\n/prelaunch"]
         AboutSAA["About SAA 2025"]
         AwardsInfo["Awards Information"]
-        SunKudos["Sun* Kudos"]
+        SunKudos["Sun* Kudos - Live board\n/kudos\nMaZUn5xHXZ"]
+        WriteKudo["Viết Kudo (compose)\n/kudos/compose"]
+        ViewKudo["View Kudo (detail)\n/kudos/{id}"]
+        SearchSunner["Tìm kiếm Sunner\n/kudos/search"]
+        ProfileOther["Profile người khác\n/users/{id}"]
+        ReceiveGift["Gửi lời chúc Kudos\n(receive popup)"]
     end
 
     subgraph Overlay["Overlays / Dropdowns"]
@@ -53,6 +59,8 @@ flowchart TD
         ProfileDropdown["Dropdown-profile\n(overlay)\n721:5223"]
         NotifPanel["Notification panel\n(overlay)"]
         QuickAction["Quick action menu\n(overlay)"]
+        HashtagFilter["Hashtag filter dropdown\n(overlay)"]
+        DeptFilter["Department filter dropdown\n(overlay)"]
     end
 
     %% Entry to Login
@@ -95,6 +103,20 @@ flowchart TD
 
     %% After successful login
     Homepage -->|"logout"| Login
+
+    %% From Sun* Kudos - Live board
+    SunKudos -->|"Click logo / Homepage nav"| Homepage
+    SunKudos -->|"Click Awards Information nav"| AwardsInfo
+    SunKudos -->|"Click 'Ghi nhận' CTA"| WriteKudo
+    SunKudos -->|"Click 'Tìm kiếm sunner' CTA"| SearchSunner
+    SunKudos -->|"Click sender/receiver avatar or name / spotlight name"| ProfileOther
+    SunKudos -->|"Click Kudo card / copy link deep link"| ViewKudo
+    SunKudos -->|"Click 'Mở quà' (D.1.8)"| ReceiveGift
+    SunKudos -->|"Click Hashtag filter"| HashtagFilter
+    SunKudos -->|"Click Phong ban filter"| DeptFilter
+    SunKudos -->|"Click language toggle"| LangDropdown
+    SunKudos -->|"Click bell icon"| NotifPanel
+    SunKudos -->|"Click Widget Button"| QuickAction
 ```
 
 ---
@@ -117,15 +139,17 @@ flowchart TD
 | Homepage SAA | Main hub / landing after login; links to Awards, Kudos, About SAA sections | After successful Google OAuth; click logo from any page | `/` |
 | About SAA 2025 | About the Sun Annual Awards 2025 event | "About SAA 2025" nav link from any main page | TBD |
 | Awards Information | Detailed awards listing and individual award detail | "Awards Information" nav link, "ABOUT AWARDS" CTA, award card click | TBD |
-| Sun* Kudos | Kudos feature hub | "Sun* Kudos" nav link, "ABOUT KUDOS" CTA, Kudos section "Chi tiết" | TBD |
+| Sun* Kudos - Live board | Kudos feature hub: hero CTAs, highlight carousel, spotlight board, all-kudos feed, personal stats sidebar | "Sun* Kudos" nav link, "ABOUT KUDOS" CTA, Kudos section "Chi tiết" | `/kudos` |
 
 ### Group: Overlays
 | Screen | Purpose | Entry Points |
 |--------|---------|--------------|
-| Dropdown-ngôn ngữ (hUyaaugye2) | Language selector overlay | Language button in header (Login, Homepage SAA) |
+| Dropdown-ngôn ngữ (hUyaaugye2) | Language selector overlay | Language button in header (Login, Homepage SAA, Sun* Kudos) |
 | Dropdown-profile (721:5223) | User profile dropdown | Avatar/user icon (A1.8) in Homepage SAA header |
-| Notification panel | In-app notifications | Bell icon (A1.6) in Homepage SAA header |
-| Quick action menu | Shortcut actions | Widget Button (6) in Homepage SAA |
+| Notification panel | In-app notifications | Bell icon (A1.6) in Homepage SAA / Sun* Kudos header |
+| Quick action menu | Shortcut actions | Widget Button (6) in Homepage SAA / Sun* Kudos |
+| Hashtag filter dropdown | Filter Highlight Kudos by hashtag | `B.1.1_ButtonHashtag` on Sun* Kudos - Live board |
+| Department filter dropdown | Filter Highlight Kudos by department | `B.1.2_Button Phong ban` on Sun* Kudos - Live board |
 
 ---
 
@@ -222,7 +246,17 @@ flowchart TD
 | /auth/google/callback | GET | Login (callback) | Handle OAuth callback, issue session |
 | /auth/me | GET | Login (post-auth) | Get authenticated user info |
 | /awards | GET | Homepage SAA | Fetch awards list for homepage award cards |
-| /kudos | GET | Homepage SAA | Fetch kudos data for homepage Sun* Kudos section |
+| /kudos | GET | Homepage SAA, Sun* Kudos - Live board | Paginated kudo feed (All Kudos section) |
+| /kudos/highlights | GET | Sun* Kudos - Live board | Curated highlight kudos for the carousel |
+| /kudos/hashtags | GET | Sun* Kudos - Live board | Hashtag options for the Highlight filter |
+| /departments | GET | Sun* Kudos - Live board | Department options for the Highlight filter |
+| /kudos/spotlight | GET | Sun* Kudos - Live board | Aggregate spotlight data: total count + sunner name cloud |
+| /kudos/spotlight/search | GET | Sun* Kudos - Live board | Search sunners inside the spotlight canvas |
+| /kudos/spotlight/live | WS/SSE | Sun* Kudos - Live board | Live ticker of new kudo events |
+| /kudos/{id}/hearts | POST | Sun* Kudos - Live board, View Kudo | Heart / unheart a kudo (idempotent per user) |
+| /users/me/stats | GET | Sun* Kudos - Live board | Personal stats: kudos received/sent, hearts (x2), secret boxes |
+| /gifts/top-recipients | GET | Sun* Kudos - Live board | Top 10 sunners who recently received gifts |
+| /gifts/open | POST | Sun* Kudos - Live board | Open a secret box → navigate to "Gửi lời chúc Kudos" popup |
 
 ---
 
@@ -283,6 +317,8 @@ flowchart LR
 | 2026-04-08 | Initial discovery | Login (GzbNeVGJHz) | Auth flow documented; Google OAuth only, no register/forgot-password |
 | 2026-04-12 | Screen discovery | Homepage SAA (i87tDx10uM) | Post-login hub; nav to Awards, Kudos, About SAA; header overlays (profile, lang, notif); award card deep-links with hash; Widget Button quick action |
 | 2026-04-13 | Screen discovery | Countdown - Prelaunch (8PJQswPZmU) | Standalone holding page; countdown timer only; public route; no header/footer; redirects to Login/Homepage on launch |
+| 2026-04-19 | Screen discovery | Sun* Kudos - Live board (MaZUn5xHXZ) | Kudos hub with 4 sections: Hero/CTAs, Highlight carousel (filterable), Spotlight board (live WS ticker + pan/zoom), All-Kudos feed (infinite scroll). Right sidebar with user stats + top 10 gift recipients. New targets: Viết Kudo, View Kudo, Tìm kiếm Sunner, Gửi lời chúc Kudos, Profile người khác |
+| 2026-04-20 | Implementation | Sun* Kudos - Live board (MaZUn5xHXZ) | Shipped end-to-end MVP on Next.js 15 + Supabase stack: 9 tables + RLS + 2 RPCs + Realtime publication, 28 React components (4 hooks, 2 skeletons, infinite-scroll feed, filter dropdowns, pan/zoom spotlight, stats panel, open-gift flow, profile hover preview), TanStack Query + React Query Devtools, analytics stub + Web Vitals reporter. Stub routes for Viết Kudo / Tìm kiếm Sunner / View Kudo / Profile người khác |
 
 ---
 
@@ -319,9 +355,10 @@ flowchart LR
 
 - [x] Discover Homepage SAA (i87tDx10uM) — map post-login navigation
 - [x] Discover Countdown - Prelaunch page (8PJQswPZmU)
+- [x] Discover Sun* Kudos - Live board (MaZUn5xHXZ)
 - [ ] Discover Admin screens (Admin - Overview, Admin - User, Admin - Setting, etc.)
 - [ ] Discover Profile screens (Profile bản thân, Profile người khác)
-- [ ] Discover Sun* Kudos flow (Viết Kudo, View Kudo, Gửi lời chúc Kudos)
+- [ ] Discover remaining Sun* Kudos flow (Viết Kudo, View Kudo, Tìm kiếm Sunner, Gửi lời chúc Kudos)
 - [ ] Discover error pages (403, 404)
 - [ ] Verify all navigation paths with frontend routing
 - [ ] Map all remaining API endpoints
