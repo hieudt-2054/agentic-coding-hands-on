@@ -660,3 +660,38 @@ body {
   position: relative;
   z-index: 1;
 }
+
+/* Design Tokens — Viết Kudo (ihQ26W78P2) */
+/* Source: .momorph/specs/ihQ26W78P2-viet-kudo/design-style.md */
+@layer base {
+  :root {
+    --color-kudos-modal-backdrop: rgba(0, 16, 26, 0.80);
+    --color-kudos-input-bg: #FFFFFF;
+    --color-kudos-required-star: #CF1322;
+    --color-kudos-community-link: #E46060;
+
+    --text-modal-title: 32px;
+    --text-modal-title-line-height: 40px;
+    --text-field-label: 22px;
+    --text-field-label-line-height: 28px;
+    --text-body: 16px;
+    --text-body-line-height: 24px;
+    --text-body-sm: 14px;
+    --text-body-sm-line-height: 20px;
+    --text-hashtag-chip: 11px;
+    --text-submit: 22px;
+    --text-submit-line-height: 28px;
+
+    --spacing-modal-padding: 40px;
+    --spacing-modal-section: 32px;
+    --spacing-modal-field-row: 16px;
+    --spacing-modal-footer-gap: 24px;
+
+    --radius-modal-card: 24px;
+    --radius-modal-input: 8px;
+    --radius-modal-cancel: 4px;
+    --radius-modal-image-thumb: 18px;
+    --radius-modal-image-inner: 4px;
+    --radius-modal-remove-btn: 9999px;
+  }
+}

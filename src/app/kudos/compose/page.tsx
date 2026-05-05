@@ -1,24 +1,32 @@
-import AppHeader from '@/components/layout/AppHeader';
-import AppFooter from '@/components/layout/AppFooter';
-import { getDictionary } from '@/i18n/get-dictionary';
+import { redirect } from 'next/navigation';
+import { createClient } from '@/libs/supabase/server';
+import { fetchProfileById } from '@/services/kudos-compose-service';
+import ComposeKudoModal from '@/components/kudos/compose/ComposeKudoModal';
+import type { SunnerRef } from '@/types/kudos';
 
-export default async function ComposeKudoStubPage() {
-  const dict = await getDictionary();
-  return (
-    <>
-      <AppHeader activeNavKey="kudos" />
-      <main
-        className="flex flex-col items-center justify-center"
-        style={{ minHeight: '60vh', padding: 'var(--spacing-page-py) var(--spacing-page-px)' }}
-      >
-        <h1 style={{ fontSize: 32, fontWeight: 700, color: 'var(--color-text-gold, #FFEA9E)' }}>
-          Viết Kudo
-        </h1>
-        <p style={{ marginTop: 16, color: 'var(--color-text-secondary, #DBD1C1)' }}>
-          {dict['kudos.stub.comingSoon']}
-        </p>
-      </main>
-      <AppFooter dict={dict} />
-    </>
-  );
+interface ComposePageProps {
+  searchParams: Promise<{ to?: string }>;
+}
+
+export default async function ComposeKudoPage({ searchParams }: ComposePageProps) {
+  const supabase = await createClient();
+  const { data: userData } = await supabase.auth.getUser();
+
+  if (!userData.user) {
+    redirect('/auth/login?redirect=/kudos/compose');
+  }
+
+  const params = await searchParams;
+  const toId = params.to;
+
+  let initialReceiver: SunnerRef | null = null;
+  if (toId) {
+    try {
+      initialReceiver = await fetchProfileById(toId);
+    } catch {
+      // ignore — just don't pre-fill
+    }
+  }
+
+  return <ComposeKudoModal variant="fullpage" initialReceiver={initialReceiver} />;
 }

@@ -11,7 +11,15 @@ export type KudosIconName =
   | 'link'
   | 'open-gift'
   | 'pan-zoom'
-  | 'star';
+  | 'star'
+  | 'bold'
+  | 'italic'
+  | 'strikethrough'
+  | 'number-list'
+  | 'quote'
+  | 'plus'
+  | 'close'
+  | 'close-tiny';
 
 interface IconProps {
   name: KudosIconName;
