@@ -10,7 +10,7 @@ import ProfilePreview from '@/components/kudos/ProfilePreview';
 import type { SunnerRef } from '@/types/kudos';
 
 interface KudoHeaderProps {
-  sender: SunnerRef;
+  sender: SunnerRef | null;
   receiver: SunnerRef;
   variant?: 'highlight' | 'feed';
 }
@@ -88,10 +88,54 @@ function SunnerChip({ sunner, align }: { sunner: SunnerRef; align: 'start' | 'en
   );
 }
 
+function AnonymousChip() {
+  return (
+    <div
+      className="flex items-center"
+      style={{ gap: 12, flexDirection: 'row', flex: 1, minWidth: 0 }}
+    >
+      <div
+        style={{
+          width: 56,
+          height: 56,
+          borderRadius: 9999,
+          overflow: 'hidden',
+          flexShrink: 0,
+          background: 'var(--color-kudos-secondary-2, #2E3940)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Image
+          src="/assets/kudos/images/avatar-placeholder.svg"
+          alt=""
+          width={56}
+          height={56}
+          style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+        />
+      </div>
+      <div className="flex flex-col" style={{ gap: 4 }}>
+        <span
+          style={{
+            fontSize: 'var(--text-kudos-card-name-size, 20px)',
+            lineHeight: 'var(--text-kudos-card-name-line-height, 28px)',
+            fontWeight: 700,
+            color: 'var(--color-kudos-text-on-light, #00101A)',
+          }}
+        >
+          Ẩn danh
+        </span>
+        <span style={{ fontSize: 14, color: 'var(--color-kudos-secondary-2, #2E3940)' }}>—</span>
+      </div>
+    </div>
+  );
+}
+
 export default function KudoHeader({ sender, receiver }: KudoHeaderProps) {
   return (
     <div className="flex items-center" style={{ gap: 16, width: '100%' }}>
-      <SunnerChip sunner={sender} align="start" />
+      {sender ? <SunnerChip sunner={sender} align="start" /> : <AnonymousChip />}
       <div
         aria-hidden="true"
         style={{ flexShrink: 0, color: 'var(--color-btn-secondary-border, #998C5F)' }}

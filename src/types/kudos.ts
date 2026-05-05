@@ -29,9 +29,12 @@ export interface KudoImage {
 
 export interface KudoCard {
   id: string;
-  sender: SunnerRef;
+  sender: SunnerRef | null;
   receiver: SunnerRef;
   content: string;
+  danhHieu: string;
+  contentHtml: string | null;
+  isAnonymous: boolean;
   createdAt: string;
   heartsCount: number;
   likedByMe: boolean;

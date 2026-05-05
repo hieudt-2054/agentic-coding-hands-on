@@ -24,6 +24,9 @@ type ProfileRow = {
 type KudoRow = {
   id: string;
   content: string;
+  danh_hieu: string | null;
+  content_html: string | null;
+  is_anonymous: boolean | null;
   created_at: string;
   hearts_count: number;
   sender: ProfileRow | null;
@@ -40,7 +43,7 @@ const PROFILE_SELECT = `
 `;
 
 const KUDO_SELECT = `
-  id, content, created_at, hearts_count,
+  id, content, danh_hieu, content_html, is_anonymous, created_at, hearts_count,
   sender:profiles!kudos_sender_id_fkey ( ${PROFILE_SELECT} ),
   receiver:profiles!kudos_receiver_id_fkey ( ${PROFILE_SELECT} ),
   department:departments ( id, name ),
@@ -72,6 +75,11 @@ function toSunner(row: ProfileRow | null | undefined): SunnerRef {
   };
 }
 
+function toSunnerOrNull(row: ProfileRow | null | undefined): SunnerRef | null {
+  if (!row) return null;
+  return toSunner(row);
+}
+
 function toKudoCard(row: KudoRow, viewerId: string | null): KudoCard {
   const images: KudoImage[] = (row.kudo_images ?? [])
     .filter((i): i is { url: string; position: number } => !!i)
@@ -88,9 +96,12 @@ function toKudoCard(row: KudoRow, viewerId: string | null): KudoCard {
 
   return {
     id: row.id,
-    sender: toSunner(row.sender),
+    sender: row.is_anonymous ? null : toSunnerOrNull(row.sender),
     receiver: toSunner(row.receiver),
     content: row.content,
+    danhHieu: row.danh_hieu ?? '',
+    contentHtml: row.content_html ?? null,
+    isAnonymous: row.is_anonymous ?? false,
     createdAt: row.created_at,
     heartsCount: row.hearts_count,
     likedByMe,

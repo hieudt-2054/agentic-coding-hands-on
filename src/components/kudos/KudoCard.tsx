@@ -6,6 +6,7 @@ import HeartsButton from '@/components/kudos/HeartsButton';
 import CopyLinkButton from '@/components/kudos/CopyLinkButton';
 import ViewDetailLink from '@/components/kudos/ViewDetailLink';
 import ImageGallery from '@/components/kudos/ImageGallery';
+import { sanitizeKudoHtml } from '@/libs/html-sanitiser';
 import type { KudoCard as KudoCardType } from '@/types/kudos';
 
 interface KudoCardProps {
@@ -71,7 +72,7 @@ export default function KudoCard({
         gap: 16,
         color: 'var(--color-kudos-text-on-light, #00101A)',
       }}
-      aria-label={`Kudo ${kudo.sender.displayName} tặng ${kudo.receiver.displayName}`}
+      aria-label={`Kudo ${kudo.sender?.displayName ?? 'Ẩn danh'} tặng ${kudo.receiver.displayName}`}
     >
       <KudoHeader sender={kudo.sender} receiver={kudo.receiver} variant={variant} />
 
@@ -89,24 +90,41 @@ export default function KudoCard({
         <time dateTime={kudo.createdAt}>{formatTimestamp(kudo.createdAt)}</time>
       </div>
 
-      <p
-        style={{
-          fontSize: 16,
-          fontWeight: 700,
-          color: 'var(--color-kudos-text-on-light, #00101A)',
-          margin: 0,
-          padding: '16px 20px',
-          borderRadius: 12,
-          background: 'var(--color-kudos-card-cream-active, #FAE287)',
-          lineHeight: '24px',
-          display: '-webkit-box',
-          WebkitLineClamp: clamp,
-          WebkitBoxOrient: 'vertical',
-          overflow: 'hidden',
-        }}
-      >
-        {kudo.content}
-      </p>
+      {kudo.contentHtml ? (
+        <div
+          style={{
+            fontSize: 16,
+            fontWeight: 700,
+            color: 'var(--color-kudos-text-on-light, #00101A)',
+            margin: 0,
+            padding: '16px 20px',
+            borderRadius: 12,
+            background: 'var(--color-kudos-card-cream-active, #FAE287)',
+            lineHeight: '24px',
+            overflow: 'hidden',
+          }}
+          dangerouslySetInnerHTML={{ __html: sanitizeKudoHtml(kudo.contentHtml) }}
+        />
+      ) : (
+        <p
+          style={{
+            fontSize: 16,
+            fontWeight: 700,
+            color: 'var(--color-kudos-text-on-light, #00101A)',
+            margin: 0,
+            padding: '16px 20px',
+            borderRadius: 12,
+            background: 'var(--color-kudos-card-cream-active, #FAE287)',
+            lineHeight: '24px',
+            display: '-webkit-box',
+            WebkitLineClamp: clamp,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+          }}
+        >
+          {kudo.content}
+        </p>
+      )}
 
       {kudo.images.length > 0 && variant === 'feed' && (
         <ImageGallery images={kudo.images.slice(0, MAX_IMAGES)} />
@@ -129,7 +147,7 @@ export default function KudoCard({
           kudoId={kudo.id}
           count={kudo.heartsCount}
           likedByMe={kudo.likedByMe}
-          isOwner={viewerId === kudo.sender.id}
+          isOwner={viewerId === (kudo.sender?.id ?? null)}
         />
         <div className="flex items-center" style={{ gap: 8 }}>
           <CopyLinkButton kudoId={kudo.id} />
