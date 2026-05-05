@@ -60,14 +60,11 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           set -e
+          ENV_NAME="${{ github.event.inputs.environment || (github.ref_name == 'production' && 'production') || 'staging' }}"
 
-          yarn opennextjs-cloudflare build --env ${{ github.event.inputs.environment || (github.ref_name == 'production' && 'production') || 'staging' }}
+          yarn opennextjs-cloudflare build --env $ENV_NAME
 
-          echo SUPABASE_SECRET_KEY="${{ secrets.SUPABASE_SECRET_KEY }}" >> /tmp/.env.worker
-
-          yarn wrangler versions secret bulk /tmp/.env.worker --env ${{ github.event.inputs.environment || (github.ref_name == 'production' && 'production') || 'staging' }}
-
-          yarn opennextjs-cloudflare upload --env ${{ github.event.inputs.environment || (github.ref_name == 'production' && 'production') || 'staging' }} \
+          yarn opennextjs-cloudflare upload --env $ENV_NAME \
             --var "NEXT_PUBLIC_SUPABASE_URL:'${{ vars.NEXT_PUBLIC_SUPABASE_URL }}'" \
             --var "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:'${{ vars.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}'" | tee /tmp/upload_output
 
@@ -76,4 +73,7 @@ jobs:
             echo "Warning: Could not find Worker Version ID in the upload output. Deploying latest version instead."
           fi
 
-          yarn wrangler versions deploy --env ${{ github.event.inputs.environment || (github.ref_name == 'production' && 'production') || 'staging' }} $version_id@100 -y
+          echo SUPABASE_SECRET_KEY="${{ secrets.SUPABASE_SECRET_KEY }}" >> /tmp/.env.worker
+          yarn wrangler versions secret bulk /tmp/.env.worker --env $ENV_NAME
+
+          yarn wrangler versions deploy --env $ENV_NAME $version_id@100 -y
